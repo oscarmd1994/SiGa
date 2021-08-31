@@ -1,0 +1,81 @@
+﻿@using Sigame.Models;
+@{
+    MArea mArea = (ViewData["AreaPorId"]) as MArea;
+}
+<div class="header"><label>INFORMACIÓN [ EDITANDO ÁREA ]</label><span class="cerrar" style="margin-top: -10px;">&times;</span></div>
+<form name="editar" method="post" autocomplete="off" onsubmit="return false;">
+    <div class="fila fila-90">
+        <div class="columna columna-100 notificacioneditar"></div>
+        <div class="columna columna-90">
+            <label>Área</label>
+            <input type="hidden" name="areaid" value="@mArea.AreaId" />
+            <input type="text" name="nuevaarea" value="@mArea.Area" class="input icono-grupo" placeholder="Área" autofocus />
+        </div>
+        <div class="columna columna-10" style="margin-top: 15px; text-align: right;">
+            <input type="submit" value="Guardar" class="boton" style="padding-left: 10px; padding-right: 10px;" />
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        $("[name=editar]").jqxValidator({
+            hintType: "label",
+            animationDuration: 0,
+            rules: [
+                {
+                    input: "[name=areaid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        if ($("[name=areaid]").val() != 0) {
+                            return true;
+                        } else {
+                            alert("No hay clave de referencia al número de empresa");
+                            return false;
+                        }
+                    }
+                },
+                {
+                    input: "[name=nuevaarea]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                }
+            ]
+        });
+        $("[name=editar]").on("submit", function () {
+            $(this).jqxValidator("validate");
+            return false;
+        });
+        $("[name=editar]").on("validationSuccess", function (event) {
+            $.ajax({
+                url: "/administrador/actualizaarea",
+                type: "post",
+                data: {
+                    areaid: $("[name=areaid]").val(),
+                    area: $("[name=nuevaarea]").val()
+                },
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".notificacioneditar").jqwNotificacion("info", "Espere un momento por favor...");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacioneditar").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    if (data.accion === "Done") {
+                        $(".notificacioneditar").jqwNotificacion("exitoso", data.respuesta);
+                    } else {
+                        $(".notificacioneditar").jqwNotificacion("error", data.respuesta);
+                    }
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".notificacioneditar").children().remove();
+                    }, 200);
+                }
+            });
+        });
+    })
+</script>

@@ -1,0 +1,94 @@
+﻿
+@{
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+@using Sigame.Models;
+<div class="tabpane">
+    <ul class="menu">
+        <li class="active">..:: HISTORIAL ::..</li>
+    </ul>
+    <div class="clear"></div>
+    <div class="border-bottom"></div>
+    <div class="tab active">
+        <div class="fila fila-100">
+            <div class="head">
+                <table class="tabla">
+                    <caption>
+                        <div class="fila fila-100">
+                            <div class="columna columna-40" style="float:right;">
+                                <input type="text" class="input icono-buscador" onkeyup="buscar(this.value.toLowerCase(),'tabla-historial');" placeholder="Buscar" />
+                            </div>
+                        </div>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th class="columna-5">N.P</th>
+                            <th class="columna-10">Folio</th>
+                            <th class="columna-10">Fecha</th>
+                            <th class="columna-10">Hora</th>
+                            <th class="columna-25">Destinatario</th>
+                            <th class="columna-25">Paquete</th>
+                            <th class="columna-10">Estado</th>
+                            <th class="columna-5">Acuse</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="lower" style="height: 54vh;">
+                <table class="tabla" id="tabla-historial">
+                    <tbody>
+                        @{
+                            if (ViewData["listaHistorial"] != null)
+                            {
+                                List<MMensaje> lista = (ViewData["listaHistorial"]) as List<MMensaje>;
+                                if (lista.Count() > 0)
+                                {
+                                    foreach (var fila in lista)
+                                    {
+                                        <tr style="color: @fila.Color">
+                                            <td class="columna-5">@fila.MensajeId</td>
+                                            <td class="columna-10">@fila.Folio</td>
+                                            <td class="columna-10">@fila.Fecha</td>
+                                            <td class="columna-10">@fila.Hora</td>
+                                            <td class="columna-25">@fila.Destinatario</td>
+                                            <td class="columna-25">@fila.Descripcion</td>
+                                            <td class="columna-10">@fila.EstadoPaquete</td>
+                                            @if (fila.Acuse != "")
+                                            {
+                                                <td class="columna-5" style="text-align: center;" data-img="@fila.Acuse">Ver</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="columna-5" style="text-align: center;"></td>
+                                            }
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="7"><center><h3>No hay registros para mostrar</h3></center></td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(document).on("click", "[data-img]", function (event) {
+            $("body").trigger("click");
+            let uri = $(this).data("img");
+            let img = '<img src="' + uri + '" class="img-view">';
+            $("body").append(img);
+            event.stopPropagation();
+        });
+        $("body").on("click", function () {
+            $(".img-view").remove();
+        });
+    });
+</script>

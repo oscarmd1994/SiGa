@@ -1,0 +1,517 @@
+﻿
+@{
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+@using Sigame.Models;
+<div class="tabpane">
+    <ul class="menu">
+        <li class="active">..:: MENSAJERÍA POR MENSAJERO ::..</li>
+        <li>..:: MENSAJERÍA POR PAQUETERÍA ::..</li>
+        <li>..:: ESTADO DE MENSAJERÍA ::..</li>
+    </ul>
+    <div class="clear"></div>
+    <div class="border-bottom"></div>
+    <div class="tab active">
+        <form name="mensajero" method="post" autocomplete="off" style="margin-top: 2%; margin-bottom: 30px;">
+            <div class="fila fila-70">
+                <div class="columna columna-100 notificacionm"></div>
+                <div class="columna columna-30">
+                    <label>Folio</label>
+                    <input type="text" name="folio" value="@ViewBag.FolioMensaje" class="input icono-folio" placeholder="Folio" readonly />
+                </div>
+                <div class="columna columna-70">
+                    <label>Descripción</label>
+                    <input type="text" name="descripcion" class="input icono-descripcion" placeholder="Descripción" />
+                </div>
+            </div>
+            <div class="fila  fila-70">
+                <div class="columna columna-15">
+                    <label>Fecha</label>
+                    <input type="text" name="fecha" value="" class="input fecha icono-calendario" placeholder="Fecha" readonly />
+                </div>
+                <div class="columna columna-15">
+                    <label>Hora</label>
+                    <input type="text" name="hora" value="" class="input hora icono-tiempo" placeholder="Hora" readonly />
+                </div>
+                <div class="columna columna-70">
+                    <label>Dirección de salida</label>
+                    <input type="text" name="direccionsalida" class="input icono-maps" placeholder="Dirección de salida"/>
+                </div>
+            </div>
+            <div class="fila fila-70">
+                <div class="columna columna-40">
+                    <label>Destinatario</label>
+                    <select name="destinatarioid" class="input icono-seleccionar">
+                        <option value="">SELECCIONAR</option>
+                        @{
+                            if (ViewData["listaDestinatariosMensaje"] != null)
+                            {
+                                foreach (var fila in ViewData["listaDestinatariosMensaje"] as List<MDestinatario>)
+                                {
+                                    <option value="@fila.DestinatarioId">@fila.Nombre</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="columna columna-60">
+                    <label>Dirección de destino</label>
+                    <select name="direcciondestinoid" class="input icono-seleccionar">
+                        <option value="">SELECCIONAR</option>
+                    </select>
+                </div>
+            </div>
+            <div class="fila fila-70">
+                <div class="columna columna-100">
+                    <fieldset style="text-align: center;">
+                        <br />
+                        <legend>Prioridad de atención</legend>
+                        @{
+                            if (ViewData["listaPrioridades"] != null)
+                            {
+                                int radio = 0;
+                                foreach (var fila in ViewData["listaPrioridades"] as List<MPrioridad>)
+                                {
+                                    <div class="columna columna-30" style="text-align: left;">
+                                        <label class="label-radio">@fila.Prioridad <input type="radio" name="prioridadid" id="radio@{Write(radio);}" value="@fila.PrioridadId" /></label>
+                                    </div>
+                                    <style>
+                                        #radio@{Write(radio + ":after");}, #radio@{Write(radio + ":checked:after");} {
+                                            border: solid 2px @fila.Color;
+                                        }
+                                    </style>
+                                    radio++;
+                                }
+                            }
+                        }
+                        <br />
+                        <br />
+                    </fieldset>
+                </div>
+            </div>
+            <div class="fila fila-70">
+                <div class="columna columna-100">
+                    <label>Observaciones</label>
+                    <textarea name="observacion" class="input icono-descripcion" rows="5" placeholder="Observaciones"></textarea>
+                </div>
+            </div>
+            <div class="fila fila-70" style="text-align:right;">
+                <div class="columna columna-100">
+                    <input type="submit" value="Guardar" class="boton" style="padding-left: 10px; padding-right: 10px;" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="tab">
+        <form name="paqueteria" method="post" autocomplete="off" style="margin-top: 2%; margin-bottom: 30px;">
+            <div class="fila fila-70">
+                <div class="columna columna-100 notificacionp"></div>
+                <div class="columna columna-30">
+                    <label>Folio</label>
+                    <input type="text" name="foliopaqueteria" value="@ViewBag.FolioEnvio" class="input icono-folio" placeholder="Folio" readonly />
+                </div>
+                <div class="columna columna-70">
+                    <label>Descripción</label>
+                    <input type="text" name="descripcionpaqueteria" class="input icono-descripcion" placeholder="Descripción" />
+                </div>
+            </div>
+            <div class="fila fila-70">
+                <div class="columna columna-15">
+                    <label>Fecha</label>
+                    <input type="text" name="fechapaqueteria" value="" class="input fecha icono-calendario" placeholder="Fecha" readonly />
+                </div>
+                <div class="columna columna-15">
+                    <label>Hora</label>
+                    <input type="text" name="horapaqueteria" value="" class="input hora icono-tiempo" placeholder="Hora" readonly />
+                </div>
+                <div class="columna columna-70">
+                    <label>Destinatario</label>
+                    <select name="destinatarioidpaqueteria" class="input icono-seleccionar">
+                        <option value="">SELECCIONAR</option>
+                        @{
+                            if (ViewData["listaDestinatariosMensaje"] != null)
+                            {
+                                foreach (var fila in ViewData["listaDestinatariosMensaje"] as List<MDestinatario>)
+                                {
+                                    <option value="@fila.DestinatarioId">@fila.Nombre</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="fila fila-70">
+                <div class="columna columna-100">
+                    <fieldset style="text-align: center;">
+                        <br />
+                        <legend>Prioridad de atención</legend>
+                        @{
+                            if (ViewData["listaPrioridades"] != null)
+                            {
+                                int radio = 0;
+                                foreach (var fila in ViewData["listaPrioridades"] as List<MPrioridad>)
+                                {
+                                    <div class="columna columna-30" style="text-align: left;">
+                                        <label class="label-radio">@fila.Prioridad <input type="radio" name="prioridadidpaqueteria" id="radio@{Write(radio);}" value="@fila.PrioridadId" /></label>
+                                    </div>
+                                    <style>
+                                        #radio@{Write(radio + ":after");}, #radio@{Write(radio + ":checked:after");} {
+                                            border: solid 2px @fila.Color;
+                                        }
+                                    </style>
+                                    radio++;
+                                }
+                            }
+                        }
+                        <br />
+                        <br />
+                    </fieldset>
+                </div>
+            </div>
+            <div class="fila fila-70">
+                <div class="columna columna-100">
+                    <label>Observaciones</label>
+                    <textarea name="observacionpaqueteria" class="input icono-descripcion" rows="5" placeholder="Observaciones"></textarea>
+                </div>
+            </div>
+            <div class="fila fila-70" style="text-align:right;">
+                <div class="columna columna-100">
+                    <input type="submit" value="Guardar" class="boton" style="padding-left: 10px; padding-right: 10px;" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="tab">
+        <div class="fila fila-90">
+            <div class="head">
+                <table class="tabla">
+                    <caption>
+                        <div class="fila fila-100">
+                            <div class="columna columna-40" style="float:right;">
+                                <input type="text" class="input icono-buscador" onkeyup="buscar(this.value.toLowerCase(),'tabla-mensajes');" placeholder="Buscar" />
+                            </div>
+                        </div>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th class="columna-10">N.P</th>
+                            <th class="columna-10">Folio</th>
+                            <th class="columna-10">Fecha</th>
+                            <th class="columna-10">Hora</th>
+                            <th class="columna-25">Destinatario</th>
+                            <th class="columna-25">Descripción</th>
+                            <th class="columna-10">Estado</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="lower" style="height: 54vh;">
+                <table class="tabla" id="tabla-mensajes">
+                    <tbody>
+                        @{
+                            if (ViewData["listaEstadoMensajesSolicitados"] != null)
+                            {
+                                List<MMensaje> lista = (ViewData["listaEstadoMensajesSolicitados"]) as List<MMensaje>;
+                                if (lista.Count() > 0)
+                                {
+                                    foreach (var fila in lista)
+                                    {
+                                        <tr style="color: @fila.Color">
+                                            <td class="columna-10">@fila.MensajeId</td>
+                                            <td class="columna-10">@fila.Folio</td>
+                                            <td class="columna-10">@fila.Fecha</td>
+                                            <td class="columna-10">@fila.Hora</td>
+                                            <td class="columna-25">@fila.Destinatario</td>
+                                            <td class="columna-25">@fila.Descripcion</td>
+                                            <td class="columna-10" style="text-align: center;">
+                                                @if (fila.EstadoPaquete == "Sin Asignar" || fila.EstadoPaquete == "Pendiente")
+                                                {
+                                                    <a class="link url" style="width: 72px; text-align: center;">En Espera</a>
+                                                }
+                                                else if (fila.EstadoPaquete == "Asignado")
+                                                {
+                                                    <a class="link editar" style="width: 72px; text-align: center;">Asignado</a>
+                                                }
+                                                else if (fila.EstadoPaquete == "Enviado" || fila.EstadoPaquete == "Enviar")
+                                                {
+                                                    <a class="link editar" style="width: 72px; text-align: center;">Enviado</a>
+                                                }
+                                                else if (fila.EstadoPaquete == "En ruta")
+                                                {
+                                                    <a class="link eliminar" style="width: 72px; text-align: center;">En ruta</a>
+                                                }
+                                                else if (fila.EstadoPaquete == "Cancelado")
+                                                {
+                                                    <a class="link eliminar" style="width: 72px; text-align: center;">Cancelado</a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="7"><center><h3>No hay registros para mostrar</h3></center></td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("[name=destinatarioid]").on("change", function () {
+            $("[name=direcciondestinoid] option").not(":first").remove();
+            var destinatarioid = $(this).val();
+            if (destinatarioid != "") {
+                $.ajax({
+                    url: "/solicitante/listadirecciones?destinatarioid=" + destinatarioid,
+                    type: "get",
+                    async: false,
+                    dataType: "json",
+                    beforeSend: function (xhr) {
+                        $(".modal").jqwLoader("open");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $(".notificacionm").jqwNotificacion("error", jqXHR.responseText);
+                    },
+                    success: function (data, textStatus, jqXHR) {
+                        for (let i = 0; i < data.length; i++) {
+                            $("[name=direcciondestinoid]").append($("<option>",
+                                {
+                                    value: data[i].DireccionDestinatarioId,
+                                    text: data[i].Direccion
+                                }));
+                        }
+                    },
+                    complete: function (data, textStatus, jqXHR) {
+                        setTimeout(function () {
+                            $(".modal").jqwLoader("close");
+                        }, 200);
+                    }
+                });
+            }
+        });
+        $("[name=mensajero]").jqxValidator({
+            hintType: "label",
+            animationDuration: 0,
+            rules: [
+                {
+                    input: "[name=folio]",
+                    message: "Este campo es requerido!",
+                    action: "change, blur",
+                    rule: function () {
+                        if ($("[name=folio]").val() != "" && $("[name=folio]").val() != "F-A0P0S0M0") {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                },
+                {
+                    input: "[name=descripcion]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=fecha]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=hora]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=direccionsalida]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=direcciondestinoid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=direcciondestinoid]").val() != "" ? true : false;
+                    }
+                },
+                {
+                    input: "[name=destinatarioid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=destinatarioid]").val() != "" ? true : false;
+                    }
+                },
+                {
+                    input: "[name=prioridadid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        if ($("[name=prioridadid]").is(":checked")) {
+                            $("[name=prioridadid]").siblings("label").remove();
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            ]
+        });
+        $("[name=mensajero]").on("submit", function () {
+            $(this).jqxValidator("validate");
+            return false;
+        });
+        $("[name=mensajero]").on("validationSuccess", function (event) {
+            $.ajax({
+                url: "/solicitante/nuevomensaje",
+                type: "post",
+                data: {
+                    folio: $("[name=folio]").val(),
+                    descripcion: $("[name=descripcion]").val(),
+                    fecha: $("[name=fecha]").val(),
+                    hora: $("[name=hora]").val(),
+                    direccionsalida: $("[name=direccionsalida]").val(),
+                    direcciondestinatarioid: $("[name=direcciondestinoid]").val(),
+                    prioridadid: $("[name=prioridadid]:checked").val(),
+                    observacion: $("[name=observacion]").val()
+                },
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".modal").jqwLoader("open");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacionm").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        if (data.accion === "Done") {
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 500);
+                            $(".notificacionm").jqwNotificacion("exitoso", data.respuesta);
+                        } else {
+                            $(".notificacionm").jqwNotificacion("error", data.respuesta);
+                        }
+                    }, 200);
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".modal").jqwLoader("close");
+                    }, 200);
+                }
+            });
+        });
+        $("[name=paqueteria]").jqxValidator({
+            hintType: "label",
+            animationDuration: 0,
+            rules: [
+                {
+                    input: "[name=foliopaqueteria]",
+                    message: "Este campo es requerido!",
+                    action: "change, blur",
+                    rule: function () {
+                        if ($("[name=foliopaqueteria]").val() != "" && $("[name=foliopaqueteria]").val() != "F-A0P0S0E0") {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                },
+                {
+                    input: "[name=descripcionpaqueteria]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=fechapaqueteria]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=horapaqueteria]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=destinatarioidpaqueteria]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=destinatarioidpaqueteria]").val() != "" ? true : false;
+                    }
+                },
+                {
+                    input: "[name=prioridadidpaqueteria]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        if ($("[name=prioridadidpaqueteria]").is(":checked")) {
+                            $("[name=prioridadidpaqueteria]").siblings("label").remove();
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            ]
+        });
+        $("[name=paqueteria]").on("submit", function () {
+            $(this).jqxValidator("validate");
+            return false;
+        });
+        $("[name=paqueteria]").on("validationSuccess", function (event) {
+            $.ajax({
+                url: "/solicitante/nuevoenvio",
+                type: "post",
+                data: {
+                    folio: $("[name=foliopaqueteria]").val(),
+                    descripcion: $("[name=descripcionpaqueteria]").val(),
+                    fecha: $("[name=fechapaqueteria]").val(),
+                    hora: $("[name=horapaqueteria]").val(),
+                    destinatarioid: $("[name=destinatarioidpaqueteria]").val(),
+                    prioridadid: $("[name=prioridadidpaqueteria]:checked").val(),
+                    observacion: $("[name=observacionpaqueteria]").val()
+                },
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".modal").jqwLoader("open");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacionp").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        if (data.accion === "Done") {
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 500);
+                            $(".notificacionp").jqwNotificacion("exitoso", data.respuesta);
+                        } else {
+                            $(".notificacionp").jqwNotificacion("error", data.respuesta);
+                        }
+                    }, 200);
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".modal").jqwLoader("close");
+                    }, 200);
+                }
+            });
+        });
+    })
+</script>

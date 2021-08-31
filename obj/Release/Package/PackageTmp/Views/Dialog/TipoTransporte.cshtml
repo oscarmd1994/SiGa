@@ -1,0 +1,80 @@
+﻿@using Sigame.Models;
+@{
+    MTipoTransporte mTipoTransporte = (ViewData["TipoTransportePorId"]) as MTipoTransporte;
+}
+<div class="header"><label>INFORMACIÓN [ EDITANDO TIPO DE TRANSPORTE ]</label><span class="cerrar" style="margin-top: -10px;">&times;</span></div>
+<form name="editar" method="post" autocomplete="off">
+    <div class="fila fila-90">
+        <div class="columna columna-100 notificacioneditar"></div>
+        <div class="columna columna-90">
+            <label>Tipo de transporte</label>
+            <input type="hidden" name="tipoid" value="@mTipoTransporte.TipoTransporteId" />
+            <input type="text" name="nuevotipo" value="@mTipoTransporte.Tipo" class="input icono-transporte" placeholder="Tipo de transporte" autofocus />
+        </div>
+        <div class="columna columna-10" style="margin-top: 15px; text-align: right;">
+            <input type="submit" value="Guardar" class="boton" style="padding-left: 10px; padding-right: 10px;" />
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        $("[name=editar]").jqxValidator({
+            hintType: "label",
+            animationDuration: 0,
+            rules: [
+                {
+                    input: "[name=tipoid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        if ($("[name=tipoid]").val() != 0) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                },
+                {
+                    input: "[name=nuevotipo]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                }
+            ]
+        });
+        $("[name=editar]").on("submit", function () {
+            $(this).jqxValidator("validate");
+            return false;
+        });
+        $("[name=editar]").on("validationSuccess", function (event) {
+            $.ajax({
+                url: "/administrador/actualizatipotransporte",
+                type: "post",
+                data: {
+                    tipoid: $("[name=tipoid]").val(),
+                    tipo: $("[name=nuevotipo]").val()
+                },
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".notificacioneditar").jqwNotificacion("info", "Espere un momento por favor...");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacioneditar").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    if (data.accion === "Done") {
+                        $(".notificacioneditar").jqwNotificacion("exitoso", data.respuesta);
+                    } else {
+                        $(".notificacioneditar").jqwNotificacion("error", data.respuesta);
+                    }
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".notificacioneditar").children().remove();
+                    }, 200);
+                }
+            });
+        });
+    })
+</script>

@@ -1,0 +1,30 @@
+﻿body {
+    background: url(../Images/System/fondo-mapa.png) no-repeat top;
+    background-size: cover;
+    display: flex;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+}
+body, section {
+    justify-content: center;
+    align-items: center;
+}
+section {
+    width: 270px;
+    min-height: 350px;
+    border-radius: 3px;
+    background-color: rgb(255, 255, 255);
+    padding: 15px 0 20px 0;
+}
+section #titulo {
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+label, section #titulo {
+    font-weight: bold;
+}

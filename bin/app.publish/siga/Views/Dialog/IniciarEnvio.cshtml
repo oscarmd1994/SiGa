@@ -1,0 +1,96 @@
+﻿@using Sigame.Models;
+<div class="header"><label>INFORMACIÓN [ ENVIANDO ENVÍO ]</label><span class="cerrar" style="margin-top: -10px;">&times;</span></div>
+<form name="enviar" method="post" autocomplete="off" onsubmit="return false;">
+    <div class="fila fila-90">
+        <div class="columna columna-100 notificacionenviar"></div>
+        <div class="columna columna-90">
+            <label>Paquetería</label>
+            <input type="hidden" name="envioid" value="@ViewBag.EnvioId" />
+            <select name="paqueteriaid" class="input">
+                <option value="">SELECCIONAR</option>
+                @{ 
+                    if(ViewData["listaPaqueterias"] != null)
+                    {
+                        foreach(var fila in ViewData["listaPaqueterias"] as List<MPaqueteria>)
+                        {
+                            <option value="@fila.PaqueteriaId">@fila.Paqueteria</option>
+                        }
+                    }
+                }
+            </select>
+        </div>
+        <div class="columna columna-10" style="margin-top: 15px; text-align: right;">
+            <input type="submit" value="Guardar" class="boton" style="padding-left: 10px; padding-right: 10px;" />
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        $("select").select2();
+        $("[name=enviar]").jqxValidator({
+            hintType: "label",
+            animationDuration: 0,
+            rules: [
+                {
+                    input: "[name=envioid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        if ($("[name=envioid]").val() != 0) {
+                            return true;
+                        } else {
+                            alert("No hay clave de referencia al número de envío");
+                            return false;
+                        }
+                    }
+                },
+                {
+                    input: "[name=paqueteriaid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        if ($("[name=paqueteriaid]").val() != "") {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            ]
+        });
+        $("[name=enviar]").on("submit", function () {
+            $(this).jqxValidator("validate");
+            return false;
+        });
+        $("[name=enviar]").on("validationSuccess", function (event) {
+            $.ajax({
+                url: "/asignador/enviarenvio",
+                type: "post",
+                data: {
+                    envioid: $("[name=envioid]").val(),
+                    paqueteriaid: $("[name=paqueteriaid]").val()
+                },
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".notificacionenviar").jqwNotificacion("info", "Espere un momento por favor...");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacionenviar").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    if (data.accion === "Done") {
+                        $(".notificacionenviar").jqwNotificacion("exitoso", data.respuesta);
+                    } else {
+                        $(".notificacionenviar").jqwNotificacion("error", data.respuesta);
+                    }
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".notificacionenviar").children().remove();
+                    }, 200);
+                }
+            });
+        });
+    });
+</script>

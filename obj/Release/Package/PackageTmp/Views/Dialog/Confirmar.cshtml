@@ -1,0 +1,48 @@
+﻿<div class="header"><label>INFORMACIÓN [ ELIMINAR LUGAR ]</label><span class="cerrar" style="margin-top: -10px;">&times;</span></div>
+    <div class="fila fila-90">
+        <div class="columna columna-100 notificacioneliminar"></div>
+        <div class="columna columna-85">
+            <label>Lugar</label>
+            <input type="hidden" name="eliminaraccion" value="@ViewBag.accion"/>
+            <input type="hidden" name="eliminarlugarid" value="@ViewBag.lugarid" />
+            <input type="text" name="eliminarlugar" value="@ViewBag.lugar" class="input icono-maps" readonly />
+        </div>
+        <div class="columna columna-15" style="margin-top: 15px; text-align: right;">
+            <input type="submit" value="Confirmar" class="boton" id="btn-confirmar" style="padding-left: 10px; padding-right: 10px;" />
+        </div>
+    </div>
+<script>
+    $(document).ready(function () {
+        $("#btn-confirmar").on("click", function (event) {
+            $.ajax({
+                url: "/administrador/eliminarlugar",
+                type: "post",
+                data: {
+                    lugarid: $("[name=eliminarlugarid]").val(),
+                    accion: $("[name=eliminaraccion]").val()
+                },
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".notificacioneliminar").jqwNotificacion("info", "Espere un momento por favor...");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacioneliminar").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    if (data.accion === "Done") {
+                        setTimeout(function () {
+                            $(".notificacioneliminar").children().remove();
+                            $(".cerrar").trigger("click");
+                        }, 200);
+                        $(".notificacioneliminar").jqwNotificacion("exitoso", data.respuesta);
+                    } else {
+                        $(".notificacioneliminar").jqwNotificacion("error", data.respuesta);
+                    }
+                },
+                complete: function (data, textStatus, jqXHR) {
+                }
+            });
+        });
+    });
+</script>

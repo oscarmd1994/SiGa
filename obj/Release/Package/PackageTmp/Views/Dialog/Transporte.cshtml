@@ -1,0 +1,162 @@
+﻿@using Sigame.Models;
+@{
+    MTransporte mTransporte = (ViewData["TransportePorId"]) as MTransporte;
+}
+<div class="header"><label>INFORMACIÓN [ EDITANDO TRANSPORTE ]</label><span class="cerrar" style="margin-top: -10px;">&times;</span></div>
+<form name="editartransporte" method="post" autocomplete="off">
+    <div class="fila fila-100">
+        <div class="columna columna-100 notificacioneditar"></div>
+        <div class="columna columna-50">
+            <input type="hidden" name="editartransporteid" value="@mTransporte.TransporteId"/>
+            <label>Tipo de Transporte</label>
+            <select name="editartipotransporteid" class="input icono-seleccionar">
+                <option value="">SELECCIONAR</option>
+                @{
+                    if (ViewData["listaTipos"] != null)
+                    {
+                        foreach (var fila in ViewData["listaTipos"] as List<MTipoTransporte>)
+                        {
+                            if (@fila.TipoTransporteId == mTransporte.TipoTransporteId)
+                            {
+                                <option value="@fila.TipoTransporteId" selected>@fila.Tipo</option>
+                            }
+                            else
+                            {
+                                <option value="@fila.TipoTransporteId">@fila.Tipo</option>
+                            }
+                        }
+                    }
+                }
+            </select>
+        </div>
+        <div class="columna columna-25">
+            <label>Placas</label>
+            <input type="text" name="editarplaca" value="@mTransporte.Placa" class="input icono-transporte" placeholder="Placas" />
+        </div>
+        <div class="columna columna-25">
+            <label>Año</label>
+            <input type="text" name="editaranio" value="@mTransporte.Anio" class="input icono-transporte" placeholder="Año" />
+        </div>
+    </div>
+    <div class="fila fila-100">
+        <div class="columna columna-50">
+            <label>Marca</label>
+            <input type="text" name="editarmarca" value="@mTransporte.Marca" class="input icono-transporte" placeholder="Marca"/>
+        </div>
+        <div class="columna columna-50">
+            <label>Modelo</label>
+            <input type="text" name="editarmodelo" value="@mTransporte.Modelo" class="input icono-transporte" placeholder="Modelo" />
+        </div> 
+    </div>
+    <div class="fila fila-100">
+        <div class="columna columna-50">
+            <label>N° de póliza</label>
+            <input type="text" name="editarpoliza" value="@mTransporte.Poliza" class="input icono-transporte" placeholder="N° de póliza"/>
+        </div>
+        <div class="columna columna-50">
+            <label>Vigencia</label>
+            <input type="date" name="editarvigencia" value="@mTransporte.Vigencia" class="input icono-calendario"/>
+        </div>
+    </div>
+    <div class="fila fila-100">
+        <div class="columna columna-100" style="margin-top: 15px; text-align: right;">
+            <input type="submit" value="Guardar" class="boton" style="padding-left: 10px; padding-right: 10px;" />
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        $("[name=editartransporte]").jqxValidator({
+            hintType: "label",
+            animationDuration: 0,
+            rules: [
+                {
+                    input: "[name=editarplaca]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=editarmodelo]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=editarpoliza]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=editarvigencia]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=editarvigencia]").val() != "" ? true : false;
+                    }
+                },
+                {
+                    input: "[name=editaranio]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=editarmarca]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=editartipotransporteid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=editartipotransporteid]").val() != "" ? true : false;
+                    }
+                }
+            ]
+        });
+        $("[name=editartransporte]").on("submit", function () {
+            $(this).jqxValidator("validate");
+            return false;
+        });
+        $("[name=editartransporte]").on("validationSuccess", function (event) {
+            $.ajax({
+                url: "/administrador/actualizatransporte",
+                type: "post",
+                data: {
+                    transporteid: $("[name=editartransporteid]").val(),
+                    placa: $("[name=editarplaca]").val(),
+                    modelo: $("[name=editarmodelo]").val(),
+                    anio: $("[name=editaranio]").val(),
+                    tipotransporteid: $("[name=editartipotransporteid]").val(),
+                    poliza: $("[name=editarpoliza]").val(),
+                    vigencia: $("[name=editarvigencia]").val(),
+                    marca: $("[name=editarmarca]").val()
+                },
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".notificacioneditar").jqwNotificacion("info", "Espere un momento por favor...");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacioneditar").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    if (data.accion === "Done") {
+                        $(".notificacioneditar").jqwNotificacion("exitoso", data.respuesta);
+                    } else {
+                        $(".notificacioneditar").jqwNotificacion("error", data.respuesta);
+                    }
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".notificacioneditar").children().remove();
+                    }, 200);
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="es-mx">
+<head>
+    <meta name="encoding" charset="utf-8" />
+    <meta name="keywords" content="HTML5, CSS3, Select2, JavaScript, JQuery, AJAX, JQwidgets" />
+    <meta name="description" content="Sistema de Geolocalización de Mensajería mediante Sitio Web y Aplicación móvil para Android e iOS" />
+    <meta name="revised" content="04/01/2021"/>
+    <meta name="author" content="Grupo SERI" />
+    <meta name="google" content="notranslate" />
+    <title>Sistema de Geolocalización de Mensajería</title>
+    <link rel="shortcut icon" href="/Content/Images/System/siga.png" />
+    <link rel="stylesheet" href="/Content/Styles/Tema.css" />
+    <link rel="stylesheet" href="/Content/Styles/Inicio.css" />
+    <link rel="stylesheet" href="/Content/Libraries/jqwidgets/styles/jqx.base.css" />
+</head>
+<body>
+    <div class="modal"></div>
+    <section>
+        <div class="fila fila-90">
+            <center>
+                <p id="titulo">Iniciar sesión</p>
+                <img src="/Content/Images/System/avatar.png" width="80" />
+            </center>
+            <form method="post" autocomplete="off">
+                <div class="columna columna-100">
+                    <label id="mensaje" style="color: rgb(179, 036, 040); font-weight: normal;"></label>
+                </div>
+                <div class="columna columna-100">
+                    <label>Username</label>
+                    <input type="text" name="usuario" class="input icono-usuario" placeholder="Usuario" autofocus="autofocus" />
+                </div>
+                <div class="columna columna-100">
+                    <label>Password</label>
+                    <input type="password" name="contrasenia" class="input icono-contrasenia" placeholder="Contraseña" />
+                </div>
+                <div class="fila fila-100">
+                    <div class="columna columna-100" style="margin-top: 15px;">
+                        <input type="submit" value="Accesar" class="boton" style="width: 100%;" />
+                    </div>
+                </div>
+            </form>
+            <div class="fila fila-100">
+                <div class="columna columna-100" style="margin-top: 5px; text-align: right;">
+                    <a href="" onclick="return false;">¿Olvidaste tu contraseña?</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="/Content/Scripts/jquery-3.5.1.min.js"></script>
+    <script src="/Content/Libraries/jqwidgets/jqxcore.js"></script>
+    <script src="/Content/Libraries/jqwidgets/jqxvalidator.js"></script>
+    <script src="~/Content/Scripts/utilities.js"></script>
+    <script>
+        if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i)) {
+            alert("Para una mejor experiencia utilizar un navegador diferente a Internet Explorer");
+        }
+        $(document).ready(function () {
+            $("form").jqxValidator({
+                hintType: "label",
+                animationDuration: 0,
+                rules: [
+                    {
+                        input: "[name=usuario]",
+                        message: "Este campo es requerido!",
+                        action: "keyup, blur",
+                        rule: "required"
+                    },
+                    {
+                        input: "[name=contrasenia]",
+                        message: "La contraseña es requerida!",
+                        action: "keyup, blur",
+                        rule: "required"
+                    }
+                ]
+            });
+            $("form").on("submit", function () {
+                $(this).jqxValidator("validate");
+                return false;
+            });
+            $("form").on("validationSuccess", function (event) {
+                $.ajax({
+                    url: "/home/iniciar",
+                    type: "post",
+                    data: {
+                        usuario: $("[name=usuario]").val(),
+                        contrasenia: $("[name=contrasenia]").val()
+                    },
+                    async: false,
+                    dataType: "json",
+                    beforeSend: function (xhr) {
+                        $(".modal").jqwLoader("open");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Error Interno del Servidor");
+                    },
+                    success: function (data, textStatus, jqXHR) {
+                        if (data.respuesta === "login") {
+                            setTimeout(function () {
+                                window.location = data.url;
+                            }, 300);
+                        } else {
+                            $("#mensaje").fadeIn("slow").html(data.respuesta);
+                        }
+                    },
+                    complete: function (data, textStatus, jqXHR) {
+                        setTimeout(function () {
+                            $(".modal").jqwLoader("close");
+                        }, 200);
+                    }
+                });
+            });
+            $("input").on("focus", function () {
+                $("#mensaje").fadeOut("slow");
+            });
+        });
+    </script>
+</body>
+</html>

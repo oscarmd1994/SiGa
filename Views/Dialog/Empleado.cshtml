@@ -1,0 +1,90 @@
+﻿@using Sigame.Models;
+@{
+    MEmpleado mEmpleado = (ViewData["EmpleadoPorId"]) as MEmpleado;
+}
+<div class="header"><label>INFORMACIÓN [ EDITANDO EMPLEADO ]</label><span class="cerrar" style="margin-top: -10px;">&times;</span></div>
+<form name="editar" method="post" autocomplete="off">
+    <div class="fila fila-100">
+        <div class="columna columna-100 notificacioneditar"></div>
+        <div class="columna columna-50">
+            <label>Nombre</label>
+            <input type="hidden" name="empleadoid" value="@mEmpleado.EmpleadoId" />
+            <input type="text" name="nuevonombre" value="@mEmpleado.Nombre" class="input icono-usuario" placeholder="Nombre" autofocus />
+        </div>
+        <div class="columna columna-50">
+            <label>Apellido Paterno</label>
+            <input type="text" name="nuevoapellidopaterno" value="@mEmpleado.ApellidoPaterno" class="input icono-usuario" placeholder="Apellido Paterno" />
+        </div>
+        <div class="columna columna-70">
+            <label>Apellido Materno</label>
+            <input type="text" name="nuevoapellidomaterno" value="@mEmpleado.ApellidoMaterno" class="input icono-usuario" placeholder="Apellido Materno" />
+        </div>
+        <div class="columna columna-30" style="margin-top: 15px; text-align:right;">
+            <input type="submit" value="Guardar" class="boton" style="padding-left: 10px; padding-right: 10px;" />
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        $("[name=editar]").jqxValidator({
+            hintType: "label",
+            animationDuration: 0,
+            rules: [
+                {
+                    input: "[name=nuevonombre]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=nuevoapellidopaterno]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=nuevoapellidomaterno]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                }
+            ]
+        });
+        $("[name=editar]").on("submit", function () {
+            $(this).jqxValidator("validate");
+            return false;
+        });
+        $("[name=editar]").on("validationSuccess", function (event) {
+            $.ajax({
+                url: "/administrador/actualizaempleado",
+                type: "post",
+                data: {
+                    empleadoid: $("[name=empleadoid]").val(),
+                    nombre: $("[name=nuevonombre]").val(),
+                    apellidopaterno: $("[name=nuevoapellidopaterno]").val(),
+                    apellidomaterno: $("[name=nuevoapellidomaterno]").val()
+                },
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".notificacioneditar").jqwNotificacion("info", "Espere un momento por favor...");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacioneditar").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    if (data.accion === "Done") {
+                        $(".notificacioneditar").jqwNotificacion("exitoso", data.respuesta);
+                    } else {
+                        $(".notificacioneditar").jqwNotificacion("error", data.respuesta);
+                    }
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".notificacioneditar").children().remove();
+                    }, 200);
+                }
+            });
+        });
+    })
+</script>

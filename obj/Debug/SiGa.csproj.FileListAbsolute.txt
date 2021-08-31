@@ -1,0 +1,274 @@
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\Sigame.dll.config
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\Sigame.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\Sigame.pdb
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\csc.exe
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\csc.exe.config
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\csc.rsp
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\csi.exe
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\csi.exe.config
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\csi.rsp
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.AppContext.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Console.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Globalization.Calendars.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.IO.Compression.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.IO.Compression.ZipFile.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Net.Http.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Net.Sockets.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.ValueTuple.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Xml.XPath.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\vbc.exe
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\vbc.exe.config
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\vbc.rsp
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\VBCSCompiler.exe
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\Microsoft.AspNetCore.Html.Abstractions.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\Newtonsoft.Json.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\System.Text.Encodings.Web.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\System.Web.Helpers.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\System.Web.Mvc.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\System.Web.Razor.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\System.Web.Webpages.Deployment.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\System.Web.Webpages.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\System.Web.Webpages.Razor.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\Microsoft.AspNetCore.Html.Abstractions.xml
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\Newtonsoft.Json.xml
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\System.Text.Encodings.Web.xml
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\System.Web.Razor.xml
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\System.Web.Webpages.xml
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\System.Web.Webpages.Deployment.xml
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\System.Web.Webpages.Razor.xml
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\System.Web.Helpers.xml
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\System.Web.Mvc.xml
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\es\System.Web.Razor.resources.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\es\System.Web.Webpages.resources.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\es\System.Web.Webpages.Deployment.resources.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\es\System.Web.Webpages.Razor.resources.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\es\System.Web.Helpers.resources.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\bin\es\System.Web.Mvc.resources.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\obj\Debug\SiGa.csproj.CoreCompileInputs.cache
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\obj\Debug\SiGa.csproj.CopyComplete
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\obj\Debug\Sigame.dll
+C:\Users\PEDRO ARCADIO\source\repos\Sigame\obj\Debug\Sigame.pdb
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\Sigame.dll.config
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\Sigame.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\Sigame.pdb
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\csc.exe
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\csc.exe.config
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\csc.rsp
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\csi.exe
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\csi.exe.config
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\csi.rsp
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.AppContext.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Console.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Globalization.Calendars.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.IO.Compression.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.IO.Compression.ZipFile.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Net.Http.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Net.Sockets.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.ValueTuple.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Xml.XPath.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\vbc.exe
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\vbc.exe.config
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\vbc.rsp
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\VBCSCompiler.exe
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\Microsoft.AspNetCore.Html.Abstractions.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\Newtonsoft.Json.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Net.Http.Formatting.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Text.Encodings.Web.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Cors.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Helpers.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Http.Cors.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Http.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Http.WebHost.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Mvc.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Razor.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Webpages.Deployment.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Webpages.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Webpages.Razor.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\Microsoft.AspNetCore.Html.Abstractions.xml
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\Newtonsoft.Json.xml
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Net.Http.Formatting.xml
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Text.Encodings.Web.xml
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Http.xml
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Http.Cors.xml
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Http.WebHost.xml
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Razor.xml
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Webpages.xml
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Webpages.Deployment.xml
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Webpages.Razor.xml
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Helpers.xml
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\System.Web.Mvc.xml
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\es\System.Net.Http.Formatting.resources.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\es\System.Web.Http.resources.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\es\System.Web.Http.WebHost.resources.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\es\System.Web.Razor.resources.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\es\System.Web.Webpages.resources.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\es\System.Web.Webpages.Deployment.resources.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\es\System.Web.Webpages.Razor.resources.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\es\System.Web.Helpers.resources.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\bin\es\System.Web.Mvc.resources.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\obj\Debug\SiGa.csproj.CoreCompileInputs.cache
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\obj\Debug\SiGa.csproj.CopyComplete
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\obj\Debug\Sigame.dll
+C:\Users\PEDRO ARCADIO\source\repos\SiGa\obj\Debug\Sigame.pdb
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\Sigame.dll.config
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\Sigame.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\Sigame.pdb
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\csc.exe
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\csc.exe.config
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\csc.rsp
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\csi.exe
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\csi.exe.config
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\csi.rsp
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.AppContext.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Console.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Globalization.Calendars.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.IO.Compression.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.IO.Compression.ZipFile.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Net.Http.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Net.Sockets.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.ValueTuple.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Xml.XPath.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\vbc.exe
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\vbc.exe.config
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\vbc.rsp
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\VBCSCompiler.exe
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\Microsoft.AspNetCore.Html.Abstractions.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\Newtonsoft.Json.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Net.Http.Formatting.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Text.Encodings.Web.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Cors.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Helpers.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Http.Cors.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Http.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Http.WebHost.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Mvc.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Razor.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Webpages.Deployment.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Webpages.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Webpages.Razor.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\Microsoft.AspNetCore.Html.Abstractions.xml
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\Newtonsoft.Json.xml
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Net.Http.Formatting.xml
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Text.Encodings.Web.xml
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Http.xml
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Http.Cors.xml
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Http.WebHost.xml
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Razor.xml
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Webpages.xml
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Webpages.Deployment.xml
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Webpages.Razor.xml
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Helpers.xml
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\System.Web.Mvc.xml
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\es\System.Net.Http.Formatting.resources.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\es\System.Web.Http.resources.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\es\System.Web.Http.WebHost.resources.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\es\System.Web.Razor.resources.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\es\System.Web.Webpages.resources.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\es\System.Web.Webpages.Deployment.resources.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\es\System.Web.Webpages.Razor.resources.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\es\System.Web.Helpers.resources.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\bin\es\System.Web.Mvc.resources.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\obj\Debug\SiGa.csproj.AssemblyReference.cache
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\obj\Debug\SiGa.csproj.CoreCompileInputs.cache
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\obj\Debug\SiGa.csproj.CopyComplete
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\obj\Debug\Sigame.dll
+C:\Users\Oscar Mejía Doroteo\Downloads\SiGa\obj\Debug\Sigame.pdb

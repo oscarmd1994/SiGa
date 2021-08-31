@@ -1,0 +1,190 @@
+﻿@using Sigame.Models;
+@{
+    MUsuario mUsuario = (ViewData["UsuarioPorId"]) as MUsuario;
+}
+<div class="header"><label>INFORMACIÓN [ EDITANDO USUARIO ]</label><span class="cerrar" style="margin-top: -10px;">&times;</span></div>
+<div class="fila fila-80">
+    <form name="editar" method="post" autocomplete="off">
+        <div class="columna columna-100 notificacioneditar"></div>
+        <div class="columna columna-100">
+            <div class="fila fila-100">
+                <div class="columna columna-50">
+                    <label>Nombre</label>
+                    <input type="hidden" name="editarusuarioid" value="@mUsuario.UsuarioId"/>
+                    <input type="text" value="@mUsuario.Nombre" class="input icono-usuario" />
+                </div>
+                <div class="columna columna-50">
+                    <label>Empresa</label>
+                    <select name="editarempresaid" class="input icono-seleccionar">
+                        <option value="">SELECCIONAR</option>
+                        @{
+                            if (ViewData["listaEmpresas"] != null)
+                            {
+                                foreach (var fila in ViewData["listaEmpresas"] as List<MEmpresa>)
+                                {
+                                    if (mUsuario.EmpresaId == @fila.EmpresaId)
+                                    {
+                                        <option value="@fila.EmpresaId" selected>@fila.Empresa</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@fila.EmpresaId">@fila.Empresa</option>
+                                    }
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="fila fila-100">
+                <div class="columna columna-60">
+                    <label>Rol de usuario</label>
+                    <select name="editarrolid" class="input icono-seleccionar">
+                        <option value="">SELECCIONAR</option>
+                        @{
+                            if (ViewData["listaRoles"] != null)
+                            {
+                                foreach (var fila in ViewData["listaRoles"] as List<MRol>)
+                                {
+                                    if (mUsuario.RolId == @fila.RolId)
+                                    {
+                                        <option value="@fila.RolId" selected>@fila.Rol</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@fila.RolId">@fila.Rol</option>
+                                    }
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="columna columna-40">
+                    <label>Área</label>
+                    <select name="editarareaid" class="input icono-seleccionar">
+                        <option value="@mUsuario.AreaId" selected>@mUsuario.Area</option>
+                        <option value="">SELECCIONAR</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="fila fila-100">
+                <div class="columna columna-100" style="margin-top: 15px; text-align: right;">
+                    <input type="submit" value="Guardar" class="boton" style="padding-left: 10px; padding-right: 10px;" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function () {
+        $("[name=editar]").jqxValidator({
+            hintType: "label",
+            animationDuration: 0,
+            rules: [
+                {
+                    input: "[name=editarusuarioid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=editarusuarioid]").val() != "" ? true : false;
+                    }
+                },
+                {
+                    input: "[name=editarareaid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=editarareaid]").val() != "" ? true : false;
+                    }
+                },
+                {
+                    input: "[name=editarempresaid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=editarempresaid]").val() != "" ? true : false;
+                    }
+                },
+                {
+                    input: "[name=editarrolid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=editarrolid]").val() != "" ? true : false;
+                    }
+                }
+            ]
+        });
+        $("[name=editar]").on("submit", function () {
+            $(this).jqxValidator("validate");
+            return false;
+        });
+        $("[name=editar]").on("validationSuccess", function (event) {
+            $.ajax({
+                url: "/administrador/actualizausuario",
+                type: "post",
+                data: {
+                    usuarioid: $("[name=editarusuarioid]").val(),
+                    areaid: $("[name=editarareaid]").val(),
+                    rolid: $("[name=editarrolid]").val()
+                },
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".notificacioneditar").jqwNotificacion("info", "Espere un momento por favor...");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacioneditar").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    if (data.accion === "Done") {
+                        $(".notificacioneditar").jqwNotificacion("exitoso", data.respuesta);
+                    } else {
+                        $(".notificacioneditar").jqwNotificacion("error", data.respuesta);
+                    }
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".notificacioneditar").children().remove();
+                    }, 200);
+                }
+            });
+        });
+        $("[name=editarempresaid]").on("change", function () {
+            $("[name=editarareaid] option").not(":first").remove();
+            var empresaid = $(this).val();
+            if (empresaid != "") {
+                $.ajax({
+                    url: "/administrador/listaareas?empresaid=" + empresaid,
+                    type: "get",
+                    async: false,
+                    dataType: "json",
+                    beforeSend: function (xhr) {
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $(".notificacioneditar").jqwNotificacion("error", jqXHR.responseText);
+                    },
+                    success: function (data, textStatus, jqXHR) {
+                        $("[name=editarareaid]").append($("<option>",
+                            {
+                                value: "",
+                                text: "SELECCIONAR"
+                            }));
+                        for (let i = 0; i < data.length; i++) {
+                            $("[name=editarareaid]").append($("<option>",
+                                {
+                                    value: data[i].AreaId,
+                                    text: data[i].Area
+                                }));
+                        }
+                    },
+                    complete: function (data, textStatus, jqXHR) {
+
+                    }
+                });
+            }
+        });
+    });
+</script>

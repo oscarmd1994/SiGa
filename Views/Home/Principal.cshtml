@@ -1,0 +1,179 @@
+﻿@using Sigame.Models;
+@{
+    MUsuario mUsuario = (ViewData["UsuarioEnSesion"]) as MUsuario;
+}
+<!DOCTYPE html>
+<html lang="es-mx">
+<head>
+    <meta name="encoding" charset="utf-8" />
+    <meta name="keywords" content="HTML5, CSS3, Select2, JavaScript, JQuery, AJAX, JQwidgets" />
+    <meta name="description" content="Sistema de Geolocalización de Mensajería mediante Sitio Web y Aplicación móvil para Android e iOS" />
+    <meta name="revised" content="04/01/2021" />
+    <meta name="author" content="Grupo SERI" />
+    <meta name="google" content="notranslate" />
+    <title>Sistema de Geolocalización de Mensajería</title>
+    <link rel="shortcut icon" href="/Content/Images/System/siga.png" />
+    <!-- Lista de archivos .css importados -->
+    <link rel="stylesheet" href="/Content/Styles/Tema.css" />
+    <link rel="stylesheet" href="/Content/Styles/Principal.css" />
+    <link rel="stylesheet" href="/Content/Libraries/jqwidgets/styles/jqx.base.css" />
+    <link href="/Content/Libraries/select2/css/select2.min.css" rel="stylesheet" />
+    <!-- Lista de archivos .js importados -->
+    <script src="/Content/Scripts/jquery-3.5.1.min.js"></script>
+    <script src="/Content/Libraries/jqwidgets/jqxcore.js"></script>
+    <script src="/Content/Libraries/jqwidgets/jqxvalidator.js"></script>
+    <script src="/Content/Libraries/select2/js/select2.min.js"></script>
+    <script src="/Content/Scripts/utilities.js"></script>
+</head>
+<body>
+    <div class="modal"></div>
+    <header>
+        <label></label>
+    </header>
+    <div class="user-menu-wrap">
+        <a class="mini-photo-wrapper">@mUsuario.Nombre @mUsuario.ApellidoPaterno @mUsuario.ApellidoMaterno <img class="mini-photo" src="~/Uploads/Profiles/@mUsuario.Foto" width="36" height="36" /></a>
+        <div class="menu-container">
+            <ul class="user-menu">
+                <div class="profile-highlight">
+                    <img src="/Uploads/Profiles/@mUsuario.Foto" width="40" height="40" />
+                    <div class="details">
+                        <div id="profile-name">@mUsuario.Nombre @mUsuario.ApellidoPaterno</div>
+                        <div id="profile-footer">@mUsuario.Rol - @mUsuario.Area</div>
+                    </div>
+                </div>
+                <li>
+                    <a class="user-menu-link" id="perfil" href="/home/perfil">
+                        <img src="~/Content/Images/System/icono-usuario.png" alt="team_icon" width="20" height="20">
+                        <div>Perfil</div>
+                    </a>
+                </li>
+                <li>
+                    <a class="user-menu-link" id="logout" href="/home/salir" style="color: #F44336;">
+                        <img src="~/Content/Images/System/icono-salir.png" alt="team_icon" width="20" height="20">
+                        <div>Cerrar sesión</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <nav>
+        <div class="logo"></div>
+        @using Sigame.Utilities;
+        @using System.Text;
+        @{
+            if (ViewData["menu"] != null)
+            {
+                List<MItem> lista = (ViewData["menu"]) as List<MItem>;
+                if (lista.Count() > 0)
+                {
+                    int contador = 0;
+                    StringBuilder menu = new StringBuilder();
+                    menu.AppendLine("<div class='tabpane'>");
+                    menu.AppendLine("<ul class='menu'>");
+                    foreach (var item in lista)
+                    {
+                        string activo = contador == 0 ? " active" : "";
+                        if (item.Nivel == 0)
+                        {
+                            menu.AppendLine("<li class='" + activo + "'>" + item.Item + "</li>");
+                            contador = 1;
+                        }
+                    }
+                    menu.AppendLine("</ul>");
+                    menu.AppendLine("<div class='clear'></div>");
+                    menu.AppendLine("<div class='border-bottom'></div>");
+                    contador = 0;
+                    foreach (var item in lista)
+                    {
+                        if (item.Nivel == 0)
+                        {
+                            string activo = contador == 0 ? " active" : "";
+                            menu.AppendLine("<div class='tab" + activo + "'>");
+                            menu.AppendLine("<ul class='horizontal-menu'>");
+                            foreach (var items in lista)
+                            {
+                                if (item.ItemId == items.Parent)
+                                {
+                                    menu.AppendLine("<li><a href='" + items.Url + "'><img src='/Content/Images/Menu/" + items.Icono + "'/><span>" + items.Item + "</span></a></li>");
+
+                                }
+                            }
+                            menu.AppendLine("</ul>");
+                            menu.AppendLine("</div>");
+                            contador = 1;
+                        }
+                    }
+                    menu.AppendLine("</div>");
+                    @Html.Raw(menu.ToString());
+                }
+            }
+        }
+    </nav>
+    <main>
+        @RenderBody()
+    </main>
+    <footer>
+        <p style="padding: 10px 20px;">
+            <label style="float: left;">Copyright &copy; 2021 SIG@@. All rights reserved.</label>
+            <label style="float: right;">Versión 1.0</label>
+        </p>
+    </footer>
+    <script>
+        $(document).ready(function () {
+            $(".menu").on("click", "li", function () {
+                if (!$(this).hasClass("active")) {
+                    var indice = $(this).index();
+                    $(this).siblings("li").removeClass("active");
+                    $(this).addClass("active");
+                    $(this).parent("ul").siblings(".tab").removeClass("active")
+                    $(this).parent("ul").siblings(".tab").eq(indice).addClass("active");
+                    let padre = $(this).parent().parent().parent().prop('nodeName').toLowerCase();
+                    if (typeof (Storage) !== "undefined") {
+                        let padres = localStorage.getItem("padres");
+                        if (padres == null) {
+                            localStorage.setItem("padres", padre);
+                        } else {
+                            padres = localStorage.getItem("padres").split(",");
+                            if (padres.indexOf(padre) === -1) {
+                                padres.push(padre);
+                                localStorage.setItem("padres", padres);
+                            }
+                        }
+                        localStorage.setItem(padre, indice);
+                    } else {
+                        alert("Su navegador no soporta localStorage");
+                    }
+                    $("select").select2();
+                }
+            });
+            if (typeof (Storage) !== "undefined") {
+                let nav = (localStorage.getItem("nav") == null || localStorage.getItem("nav") == "") ? 0 : localStorage.getItem("nav");
+                let main = (localStorage.getItem("main") == null || localStorage.getItem("main") == "") ? 0 : localStorage.getItem("main");
+                let padres = (localStorage.getItem("padres") == null || localStorage.getItem("padres") == "") ? [] : localStorage.getItem("padres").split(",");
+                for (let i = 0; i < padres.length; i++) {
+                    if (padres[i] !== "") {
+                        $(padres[i] + " ul.menu li").removeClass("active");
+                        $(padres[i] + " .tab").removeClass("active");
+                        $(padres[i] + " ul.menu li").eq(padres[i] == "main" ? main : nav).addClass("active");
+                        $(padres[i] + " .tab").eq(padres[i] == "main" ? main : nav).addClass("active");
+                    }
+                }
+                $(".tab ul li, #perfil").on("click", function () {
+                    localStorage.setItem("padres", localStorage.getItem("padres").split(",").filter(function (padre) { return padre !== "main" }));
+                });
+                $("#logout").on("click", function () {
+                    localStorage.clear();
+                });
+            }
+            $("select").select2();
+        });
+        $(".user-menu-wrap").on("click", function (event) {
+            $(".menu-container").toggleClass("active");
+            event.stopPropagation();
+        });
+        $("body").on("click", function () {
+            $(".menu-container").removeClass("active");
+        });
+    </script>
+</body>
+</html>

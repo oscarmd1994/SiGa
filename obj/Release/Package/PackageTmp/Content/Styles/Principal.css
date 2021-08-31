@@ -1,0 +1,572 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+header, main, footer, nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+}
+header {
+    top: 0;
+}
+header label:before {
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: initial;
+    letter-spacing: 3px;
+    content: "Sistema de Geolocalización de Mensajería";
+}
+nav {
+    top: 30px;
+    height: 100px;
+}
+main {
+    top: 130px;
+    bottom: 30px;
+}
+header, footer {
+    color: #eaf5f7;
+    text-align: center;
+    display: table;
+    width: 100%;
+    z-index: -1;
+}
+footer, header {
+    height: 30px;
+}
+footer {
+    bottom: 0;
+}
+header label, nav *, footer label {
+    display: table-cell;
+    vertical-align: middle;
+}
+.logo {
+    background: url(/content/Images/System/siga.png) no-repeat top;
+    background-size: cover;
+    height: 50px;
+    width: 65px;
+    position: absolute;
+    right: 30px;
+    top: 38px;
+    cursor: help;
+}
+.logo:hover {
+    -webkit-transform: scale(1.10);
+    -moz-transform: scale(1.10);
+    -ms-transform: scale(1.10);
+    -o-transform: scale(1.10);
+    transform: scale(1.10);
+}
+/****** Panel de navegación ******/
+.tabpane {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    display: block;
+}
+.tabpane ul {
+    list-style: none outside;
+    width: 100%;
+    margin: 0 0 0 -1px;
+    padding: 0;
+}
+.tabpane ul.menu li {
+    float: left;
+    padding: 5px 20px;
+    border-bottom: none;
+    cursor: pointer;
+    color: #eaf5f7;
+}
+.tabpane ul.menu li.active {
+    background: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
+    border-bottom: none;
+    margin-bottom: -1px;
+    color: rgb(66, 79, 89);
+}
+.clear {
+    clear: both;
+    height: 0;
+    visibility: hidden;
+    display: block;
+}
+.border-bottom {
+    display: block;
+    border-top: none;
+}
+.tab {
+    background-color: rgb(255, 255, 255);
+    padding: 10px 5px 10px 5px;
+    display: none;
+    height: 95%;
+    overflow-y: auto;
+}
+.tabpane div.active {
+    display: block;
+}
+/*********************************/
+/** Submenús **/
+.horizontal-menu {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    margin-top: -3px !important;
+}
+.horizontal-menu li a img {
+    width: 30px;
+    border: none;
+    margin: auto;
+}
+.horizontal-menu li a {
+    text-decoration: none;
+    height: 60px;
+    padding: 0 8px 0 8px;
+    border-radius: 3px;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+    color: rgb(66, 79, 89);
+}
+/**************/
+#foto-perfil {
+    border-radius: 4px;
+    object-fit: cover;
+    width: 110px;
+    height: 110px;
+}
+.personaliza {
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    width: 150px;
+    min-height: 35px;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+.personaliza .fichero-entrada {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    font-size: 10000px;
+    border: 10000px solid transparent;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    position: absolute;
+    right: -1000px;
+    top: -1000px;
+    cursor: pointer;
+    overflow: hidden;
+}
+.personaliza .archivo {
+    color: rgb(255, 255, 255);
+    font-size: 7pt;
+    overflow: hidden;
+    height: 10px;
+}
+.personaliza:hover .archivo {
+    background: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
+    color: rgb(0, 64, 126);
+}
+/****** Ventana modal *******/
+/*#ventana {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+    #ventana .header, #ventana .body, #ventana .footer {
+        padding: 6px 15px;
+    }
+    #ventana .header {
+        border-radius: 5px 5px 0 0;
+        font-size: 10pt;
+        text-shadow: -1px -1px 1px rgb(255, 255, 255), 1px -1px 1px rgb(255, 255, 255), -1px 1px 1px rgb(255, 255, 255), 1px 1px 1px rgb(255, 255, 255);
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+        background-color: rgb(0, 64, 126);
+    }
+
+    #ventana .footer {
+        border-radius: 0 0 5px 5px;
+        text-align: center;
+    }
+
+    #ventana .body, #ventana .footer {
+        background-color: rgb(255, 255, 255);
+        width: 100%;
+    }
+    #ventana .body {
+        overflow: auto;
+    }
+  */ /**********************/
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    cursor: default;
+}
+.tabla th, .tabla caption {
+    padding: 10px 1px;
+    font-weight: normal;
+    color: #eaf5f7;
+}
+.tabla td {
+    padding: 5px 1px;
+}
+tr:nth-child(odd) {
+    background-color: rgb(255, 255, 255);
+}
+tr:nth-child(even) {
+    background: #fcfdfd url(../Images/System/ui-bg_inset-hard_100_fcfdfd_1x100.png) 50% bottom repeat-x;
+}
+.head {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 100%;
+}
+.lower {
+    overflow-x: auto;
+    overflow-y: scroll;
+    width: 100%;
+}
+.arrastrar {
+    cursor: pointer;
+    width: 250px;
+    padding: 5px;
+    color: #eaf5f7;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 5px auto;
+    border-radius: 2px;
+}
+.arrastrar img {
+    border-radius: 100px;
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
+    background-color: rgb(255, 255, 255);
+}
+.paquete:hover {
+    color: rgb(255, 255, 255);
+}
+.lista-paquetes, lista-mensajeros {
+    padding: 0;
+    min-height: 300px;
+    max-height: 65vh;
+    overflow-y: auto;
+}
+ul {
+    list-style: none;
+}
+.mini-photo-wrapper {
+    color: #eaf5f7;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    cursor: pointer;
+}
+.mini-photo-wrapper:hover {
+    background-color: rgb(0, 38, 75);
+}
+.mini-photo-wrapper:active {
+    margin-top: 1px;
+}
+.mini-photo {
+    border-radius: 100px;
+    margin-left: 5px;
+    width: 25px;
+    height: 25px;
+    background-color: #eaf5f7;
+}
+.user-menu-wrap {
+    float: right;
+    width: 265px;
+}
+.menu-container {
+    visibility: hidden;
+    opacity: 0;
+}
+.menu-container.active {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+.user-menu {
+    position: absolute;
+    top: 15px;
+    background-color: #ffffff;
+    width: 256px;
+    border-radius: 2px;
+    margin-top: 22px;
+    z-index: 1;
+}
+.user-menu .profile-highlight {
+    display: -webkit-box;
+    display: flex;
+    padding: 12px 16px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: #eaf5f7;
+}
+.user-menu .profile-highlight img {
+    border-radius: 25px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    padding: 2px;
+    background-color: #eaf5f7;
+}
+.user-menu .profile-highlight .details {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    margin: auto 12px;
+}
+.user-menu .profile-highlight .details #profile-name {
+    font-weight: 600;
+    font-size: 16px;
+}
+.user-menu .profile-highlight .details #profile-footer {
+    font-weight: 300;
+    font-size: 14px;
+    margin-top: 4px;
+}
+.user-menu .user-menu-link {
+    display: -webkit-box;
+    display: flex;
+    text-decoration: none;
+    color: #333333;
+    font-weight: 400;
+    font-size: 14px;
+    padding: 6px 10px;
+}
+.user-menu .user-menu-link div {
+    margin: auto 10px;
+}
+.user-menu:before {
+    position: absolute;
+    top: -16px;
+    right: 0;
+    left: 239px;
+    display: inline-block;
+    content: "";
+    border: 8px solid transparent;
+    border-bottom-color: #a6c9e2;
+}
+.user-menu:after {
+    position: absolute;
+    top: -14px;
+    right: 0;
+    left: 240px;
+    display: inline-block;
+    content: "";
+    border: 7px solid transparent;
+    border-bottom-color: #ffffff;
+}
+/*************************/
+/**** REDIOBUTTON ****/
+.label-radio * {
+    vertical-align: middle;
+}
+input[type=radio]:after {
+    background-color: rgb(255, 255, 255);
+}
+input[type=radio]:after, input[type=radio]:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    position: relative;
+    top: -2px;
+    left: -1px;
+    content: "";
+    display: inline-block;
+    visibility: visible;
+}
+/***********************/
+/*******CHECKBOX*****/
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 16px;
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #2191c0 url(../Images/System/ui-bg_gloss-wave_75_2191c0_500x100.png) 50% 50% repeat-x;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 10px;
+    width: 10px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+input:checked + .slider {
+    background: url(../Images/System/ui-bg_gloss-wave_50_6eac2c_500x100.png) 50% 50% repeat-x;
+}
+input:checked + .slider:before {
+    -webkit-transform: translateX(14px);
+    -ms-transform: translateX(14px);
+    transform: translateX(14px);
+}
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+.slider.round:before {
+    border-radius: 50%;
+}
+/************LINK *************/
+a.editar {
+    background: #2191c0 url(../Images/System/ui-bg_gloss-wave_75_2191c0_500x100.png) 50% 50% repeat-x;
+    border: solid 1px #4297d7;
+    color: #eaf5f7;
+}
+a.editar:hover {
+    background: #448dae url(../Images/System/ui-bg_glass_75_79c9ec_1x400.png) 50% 50% repeat-x;
+    color: #026890;
+}
+a.eliminar {
+    border: solid 1px #d19405;
+    background: #fece2f url(../Images/System/ui-bg_gloss-wave_60_fece2f_500x100.png) 50% 50% repeat-x;
+    color: #a45b13;
+}
+a.eliminar:hover {
+    border: solid 1px #a45b13;
+    background: #ffdd57 url(../Images/System/ui-bg_gloss-wave_70_ffdd57_500x100.png) 50% 50% repeat-x;
+}
+a.url {
+    border: solid 1px #a4bed4;
+    background-color: #e0e9f5;
+    color: #000000;
+}
+a.url:hover {
+    background-color: #cfdde9;
+}
+.link {
+    text-decoration: none;
+    display: inline-block;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin: -2px 2px -2px 2px;
+    cursor: pointer;
+}
+/*************NOTIFICACIONES****************/
+.info, .exitoso, .advertencia, .error {
+    border: 1px solid;
+    /*margin: 5px 0px;*/
+    padding: 5px 10px 5px 40px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    text-align: left;
+    width: auto;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 2px;
+}
+.info {
+    color: #00529B;
+    background-color: #BDE5F8;
+    background-image: url('../Images/System/info.jpg');
+}
+.exitoso {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    background-image: url('../Images/System/exitoso.jpg');
+}
+/*.advertencia {
+    color: #9F6000;
+    background-color: #FEEFB3;
+    background-image: url('../Images/System/advertencia.jpg');
+}
+*/
+.error {
+    color: #D8000C;
+    background-color: #FFBABA;
+    background-image: url('../Images/System/error.jpg');
+}
+.info span, .exitoso span/*, .advertencia span*/, .error span, .modal .body .header span {
+    margin-top: -5px;
+    float: right;
+    cursor: pointer;
+    font-size: 25px;
+}
+/***********Diseño de ventana de marcador **********/
+.popup {
+    width: 145px;
+    border: solid 1px rgb(70, 130, 180);
+    border-radius: 10px;
+    padding: 5px 0;
+}
+.line {
+    height: 30px;
+    border-style: solid;
+    border-color: #8c8b8b;
+    border-width: 1px 0 0 0;
+    border-radius: 17px;
+    margin-bottom: -25px;
+}
+.line:before {
+    display: block;
+    content: "";
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+.img-mensajero {
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+}
+.text-info {
+    display: block;
+    font-size: 8pt;
+    padding: 0 3px;
+}
+/*******************************/
+.img-view {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 45%;
+    height: 98%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+}

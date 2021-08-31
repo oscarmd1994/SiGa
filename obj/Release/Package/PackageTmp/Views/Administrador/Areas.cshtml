@@ -1,0 +1,164 @@
+﻿
+@{
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+@using Sigame.Models;
+<div class="tabpane">
+    <ul class="menu">
+        <li class="active">..:: REGISTRAR ÁREAS ::..</li>
+    </ul>
+    <div class="clear"></div>
+    <div class="border-bottom"></div>
+    <div class="tab active">
+        <form method="post" autocomplete="off" style="margin-top: 2%; margin-bottom: 30px;">
+            <div class="fila fila-40">
+                <p class="info" style="display: flex; padding: 10px 20px 10px 40px;">@ViewBag.empresa</p>
+                <div class="columna columna-100 notificacion"></div>
+                <div class="columna columna-90">
+                    <label>Área</label>
+                    <input type="hidden" name="empresaid" value="@ViewBag.empresaid" />
+                    <input type="text" name="area" class="input icono-grupo" placeholder="Área" autofocus />
+                </div>
+                <div class="columna columna-10" style="margin-top: 15px; text-align: right;">
+                    <input type="submit" value="Guardar" class="boton" style="padding-left: 10px; padding-right: 10px;" />
+                </div>
+            </div>
+        </form>
+        <div class="fila fila-60">
+            <div class="head">
+                <table class="tabla">
+                    <caption>
+                        <div class="fila fila-100">
+                            <div class="columna columna-40" style="float:right;">
+                                <input type="text" class="input icono-buscador" onkeyup="buscar(this.value.toLowerCase(),'tabla-areas');" placeholder="Buscar" />
+                            </div>
+                        </div>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th class="columna-10">N.P</th>
+                            <th class="columna-70">Área</th>
+                            <th class="columna-10">Estado</th>
+                            <th class="columna-10">Acción</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="lower" style="max-height: 28vh;">
+                <table class="tabla" id="tabla-areas">
+                    <tbody>
+                        @{
+                            if (ViewData["listaAreas"] != null)
+                            {
+                                List<MArea> lista = (ViewData["listaAreas"]) as List<MArea>;
+                                if (lista.Count() > 0)
+                                {
+                                    foreach (var fila in lista)
+                                    {
+                                        <tr>
+                                            <td class="columna-10">@fila.AreaId</td>
+                                            <td class="columna-70">@fila.Area</td>
+                                            <td class="columna-10">
+                                                <label class="switch">
+                                                    @{
+                                                        if (fila.EstadoArea == false)
+                                                        {
+                                                            <input type="checkbox" data-estado="/administrador/estadoarea?areaid=@fila.AreaId" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="checkbox" data-estado="/administrador/estadoarea?areaid=@fila.AreaId" checked />
+                                                        }
+                                                    }
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </td>
+                                            <td class="columna-10">
+                                                <a data-href="/administrador/area?idarea=@fila.AreaId" class="link editar">Editar</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4"><center><h3>No hay registros para mostrar</h3></center></td>
+                                    </tr>
+                                }
+
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("form").jqxValidator({
+            hintType: "label",
+            animationDuration: 0,
+            rules: [
+                {
+                    input: "[name=empresaid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        if ($("[name=empresaid]").val() != 0) {
+                            return true;
+                        } else {
+                            alert("No hay clave de referencia al número de empresa");
+                            return false;
+                        }
+                    }
+                },
+                {
+                    input: "[name=area]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                }
+            ]
+        });
+        $("form").on("submit", function () {
+            $(this).jqxValidator("validate");
+            return false;
+        });
+        $("form").on("validationSuccess", function (event) {
+            $.ajax({
+                url: "/administrador/nuevaarea",
+                type: "post",
+                data: {
+                    empresaid: $("[name=empresaid]").val(),
+                    area: $("[name=area]").val()
+                },
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".modal").jqwLoader("open");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacion").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        if (data.accion === "Done") {
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 500);
+                            $(".notificacion").jqwNotificacion("exitoso", data.respuesta);
+                        } else {
+                            $(".notificacion").jqwNotificacion("error", data.respuesta);
+                        }
+                    }, 200);
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".modal").jqwLoader("close");
+                    }, 200);
+                }
+            });
+        });
+    });
+</script>

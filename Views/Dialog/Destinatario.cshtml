@@ -1,0 +1,274 @@
+﻿@using Sigame.Models;
+@{
+    MDestinatario mDestinatario = (ViewData["DestinatarioPorId"]) as MDestinatario;
+}
+<div class="header"><label>INFORMACIÓN [ EDITANDO DESTINATARIO ]</label><span class="cerrar" style="margin-top: -10px;">&times;</span></div>
+<form name="editar" method="post" autocomplete="off">
+    <div class="fila fila-80">
+        <div class="columna columna-100 notificacioneditar"></div>
+        <div class="columna columna-50">
+            <label>Nombre</label>
+            <input type="hidden" name="editarempleadoid" value="@mDestinatario.DestinatarioId" />
+            <input type="text" value="@mDestinatario.Nombre" class="input icono-usuario" readonly />
+        </div>
+        <div class="columna columna-50">
+            <label>Empresa</label>
+            <select name="editarempresaid" class="input icono-seleccionar">
+                <option value="">SELECCIONAR</option>
+                @{
+                    if (ViewData["listaEmpresas"] != null)
+                    {
+                        foreach (var fila in ViewData["listaEmpresas"] as List<MEmpresa>)
+                        {
+                            if (fila.EmpresaId == mDestinatario.EmpresaId)
+                            {
+                                <option value="@fila.EmpresaId" selected>@fila.Empresa</option>
+                            }
+                            else
+                            {
+                                <option value="@fila.EmpresaId">@fila.Empresa</option>
+                            }
+                        }
+                    }
+
+                }
+            </select>
+        </div>
+    </div>
+    <div class="fila fila-80">
+        <div class="columna columna-50">
+            <label>Área</label>
+            <select name="editarareaid" class="input icono-seleccionar">
+                <option value="@mDestinatario.AreaId" selected>@mDestinatario.Area</option>
+                <option value="">SELECCIONAR</option>
+            </select>
+        </div>
+        <div class="columna columna-50" style="margin-top: 15px; text-align: right;">
+            <input type="submit" value="Guardar" class="boton" style="padding-left: 10px; padding-right: 10px;" />
+        </div>
+    </div>
+</form>
+<form name="agregar" method="post" autocomplete="off">
+    <div class="fila fila-80">
+        <div class="columna columna-90">
+            <label>Dirección</label>
+            <input type="text" name="agregardireccion" class="input icono-maps" placeholder="Dirección" />
+        </div>
+        <div class="columna columna-10" style="margin-top: 15px; text-align: right;">
+            <input type="submit" value="+" class="boton" style="padding-left: 10px; padding-right: 10px;" />
+        </div>
+    </div>
+</form>
+<div id="contenedor-direcciones">
+    @{
+        if (mDestinatario.Direccion != "")
+        {
+            string[] cadena = mDestinatario.Direccion.Remove(mDestinatario.Direccion.Length - 1).Split('|');
+            foreach (var lugar in cadena)
+            {
+                string[] dato = lugar.Split(':');
+                <div class="fila fila-80">
+                    <div class="columna columna-80">
+                        <label>Dirección</label>
+                        <input type="text" value="@dato[1]" class="input icono-maps" placeholder="Dirección" />
+                    </div>
+                    <div class="columna columna-20" style="margin-top: 15px; text-align: right;">
+                        <input type="button" data-update="@dato[0]" value="Actualizar" class="boton" style="padding-left: 10px; padding-right: 10px;" />
+                    </div>
+                </div>
+            }
+        }
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        $("[name=editar]").jqxValidator({
+            hintType: "label",
+            animationDuration: 0,
+            rules: [
+                {
+                    input: "[name=editarempleadoid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=editarempleadoid]").val() != "" ? true : false;
+                    }
+                },
+                {
+                    input: "[name=editarareaid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=editarareaid]").val() != "" ? true : false;
+                    }
+                },
+                {
+                    input: "[name=editarempresaid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=editarempresaid]").val() != "" ? true : false;
+                    }
+                }
+            ]
+        });
+        $("[name=editar]").on("submit", function () {
+            $(this).jqxValidator("validate");
+            return false;
+        });
+        $("[name=editar]").on("validationSuccess", function (event) {
+            $.ajax({
+                url: "/administrador/actualizadestinatario",
+                type: "post",
+                data: {
+                    destinatarioid: $("[name=editarempleadoid]").val(),
+                    areaid: $("[name=editarareaid]").val()
+                },
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".notificacioneditar").jqwNotificacion("info", "Espere un momento por favor...");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacioneditar").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    if (data.accion === "Done") {
+                        $(".notificacioneditar").jqwNotificacion("exitoso", data.respuesta);
+                    } else {
+                        $(".notificacioneditar").jqwNotificacion("error", data.respuesta);
+                    }
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".notificacioneditar").children().remove();
+                    }, 200);
+                }
+            });
+        });
+        $("[name=editarempresaid]").on("change", function () {
+            $("[name=editarareaid] option").not(":first").remove();
+            var empresaid = $(this).val();
+            if (empresaid != "") {
+                $.ajax({
+                    url: "/administrador/listaareas?empresaid=" + empresaid,
+                    type: "get",
+                    async: false,
+                    dataType: "json",
+                    beforeSend: function (xhr) {
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $(".notificacioneditar").jqwNotificacion("error", jqXHR.responseText);
+                    },
+                    success: function (data, textStatus, jqXHR) {
+                        $("[name=editarareaid]").append($("<option>",
+                            {
+                                value: "",
+                                text: "SELECCIONAR"
+                            }));
+                        for (let i = 0; i < data.length; i++) {
+                            $("[name=editarareaid]").append($("<option>",
+                                {
+                                    value: data[i].AreaId,
+                                    text: data[i].Area
+                                }));
+                        }
+                    },
+                    complete: function (data, textStatus, jqXHR) {
+
+                    }
+                });
+            }
+        });
+        $("[name=agregar]").jqxValidator({
+            hintType: "label",
+            animationDuration: 0,
+            rules: [
+                {
+                    input: "[name=agregardireccion]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                }
+            ]
+        });
+        $("[name=agregar]").on("submit", function () {
+            $(this).jqxValidator("validate");
+            return false;
+        });
+        $("[name=agregar]").on("validationSuccess", function (event) {
+            $.ajax({
+                url: "/administrador/agregardireccion",
+                type: "post",
+                data: {
+                    destinatarioid: $("[name=editarempleadoid]").val(),
+                    agregardireccion: $("[name=agregardireccion]").val()
+                },
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".notificacioneditar").jqwNotificacion("info", "Espere un momento por favor...");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacioneditar").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    if (data.accion === "Done") {
+                        var dato = data.respuesta.split(':');
+                        var elementos = ' <div class="fila fila-80">'+
+                    '<div class="columna columna-80">'+
+                        '<label>Dirección</label>'+
+                        '<input type="text" value="' + dato[1] + '" class="input icono-maps" placeholder="Dirección" />'+
+                    '</div>'+
+                    '<div class="columna columna-20" style="margin-top: 15px; text-align: right;">'+
+                        '<input type="button" data-update="' + dato[0] + '" value="Actualizar" class="boton" style="padding-left: 10px; padding-right: 10px;" />'+
+                    '</div>'+
+                            '</div>';
+                        $("#contenedor-direcciones").append(elementos);
+                        $("[name=agregar]")[0].reset();
+                    } else {
+                        $(".notificacioneditar").jqwNotificacion("error", data.respuesta);
+                    }
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".notificacioneditar").children().remove();
+                    }, 200);
+                }
+            });
+        });
+        $(document).on("click", "[data-update]", function () {
+            var destinatarioid = $(this).data("update");
+            var direccion = $(this).parent().siblings().children("input[type=text]").val();
+            $.ajax({
+                url: "/administrador/actualizadireccion",
+                type: "post",
+                data: {
+                    destinatarioid: destinatarioid,
+                    direccion: direccion
+                },
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".notificacioneditar").jqwNotificacion("info", "Espere un momento por favor...");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacioneditar").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    if (data.accion === "Done") {
+                        $(".notificacioneditar").jqwNotificacion("exitoso", data.respuesta);
+                    } else {
+                        $(".notificacioneditar").jqwNotificacion("error", data.respuesta);
+                    }
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".notificacioneditar").children().remove();
+                    }, 200);
+                }
+            });
+        });
+    });
+</script>

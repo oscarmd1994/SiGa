@@ -1,0 +1,147 @@
+﻿
+@{
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+@using Sigame.Models;
+<div class="tabpane">
+    <ul class="menu">
+        <li class="active">..:: REGISTRAR PAQUETERÍAS ::..</li>
+    </ul>
+    <div class="clear"></div>
+    <div class="border-bottom"></div>
+    <div class="tab active">
+        <form method="post" autocomplete="off" style="margin-top: 2%; margin-bottom: 30px;">
+            <div class="fila fila-40">
+                <div class="columna columna-100 notificacion"></div>
+                <div class="columna columna-90">
+                    <label>Paquetería</label>
+                    <input type="text" name="paqueteria" class="input icono-paquete" placeholder="Paquetería" autofocus />
+                </div>
+                <div class="columna columna-10" style="margin-top: 15px; text-align: right;">
+                    <input type="submit" value="Guardar" class="boton" style="padding-left: 10px; padding-right: 10px;" />
+                </div>
+            </div>
+        </form>
+        <div class="fila fila-70">
+            <div class="head">
+                <table class="tabla">
+                    <caption>
+                        <div class="fila fila-100">
+                            <div class="columna columna-40" style="float:right;">
+                                <input type="text" class="input icono-buscador" onkeyup="buscar(this.value.toLowerCase(),'tabla-paqueterias');" placeholder="Buscar" />
+                            </div>
+                        </div>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th class="columna-10">N.P</th>
+                            <th class="columna-70">Paquetería</th>
+                            <th class="columna-10">Estado</th>
+                            <th class="columna-10">Acción</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="lower" style="max-height: 33vh;">
+                <table class="tabla" id="tabla-paqueterias">
+                    <tbody>
+                        @{
+                            if (ViewData["listaPaqueterias"] != null)
+                            {
+                                List<MPaqueteria> lista = (ViewData["listaPaqueterias"]) as List<MPaqueteria>;
+                                if (lista.Count() > 0)
+                                {
+                                    foreach (var fila in lista)
+                                    {
+                                        <tr>
+                                            <td class="columna-10">@fila.PaqueteriaId</td>
+                                            <td class="columna-70">@fila.Paqueteria</td>
+                                            <td class="columna-10">
+                                                <label class="switch">
+                                                    @{
+                                                        if (fila.EstadoPaqueteria == false)
+                                                        {
+                                                            <input type="checkbox" data-estado="/administrador/estadopaqueteria?paqueteriaid=@fila.PaqueteriaId" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="checkbox" data-estado="/administrador/estadopaqueteria?paqueteriaid=@fila.PaqueteriaId" checked />
+                                                        }
+                                                    }
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </td>
+                                            <td class="columna-10">
+                                                <a data-href="/administrador/paqueteria?idpaqueteria=@fila.PaqueteriaId" class="link editar">Editar</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4"><center><h3>No hay registros para mostrar</h3></center></td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("form").jqxValidator({
+            hintType: "label",
+            animationDuration: 0,
+            rules: [
+                {
+                    input: "[name=paqueteria]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                }
+            ]
+        });
+        $("form").on("submit", function () {
+            $(this).jqxValidator("validate");
+            return false;
+        });
+        $("form").on("validationSuccess", function (event) {
+            $.ajax({
+                url: "/administrador/nuevapaqueteria",
+                type: "post",
+                data: {
+                    paqueteria: $("[name=paqueteria]").val()
+                },
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".modal").jqwLoader("open");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacion").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        if (data.accion === "Done") {
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 500);
+                            $(".notificacion").jqwNotificacion("exitoso", data.respuesta);
+                        } else {
+                            $(".notificacion").jqwNotificacion("error", data.respuesta);
+                        }
+                    }, 200);
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".modal").jqwLoader("close");
+                    }, 200);
+                }
+            });
+        });
+    })
+</script>

@@ -1,0 +1,148 @@
+﻿
+@{
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+@using Sigame.Models;
+<div class="tabpane">
+    <ul class="menu">
+        <li class="active">..:: LOCALIZAR PAQUETES ::..</li>
+    </ul>
+    <div class="clear"></div>
+    <div class="border-bottom"></div>
+    <div class="tab active">
+        <div class="fila fila-100">
+            <div class="columna columna-40">
+                <div class="head">
+                    <table class="tabla">
+                        <caption>
+                            LISTA DE ASIGNACIONES EN ESPERA
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th class="columna-60" colspan="3">Asignación</th>
+                                <th class="columna-40" rowspan="2">Paquetes</th>
+                            </tr>
+                            <tr>
+                                <th class="columna-15">Fecha</th>
+                                <th class="columna-15">Hora</th>
+                                <th class="columna-30">Mensajero</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="lower" style="max-height: 50vh;">
+                    <table class="tabla">
+                        <tbody>
+                            @{
+                                if (ViewData["listaPaquetesAsignadosEnEspera"] != null)
+                                {
+                                    List<MPaquete> lista = (ViewData["listaPaquetesAsignadosEnEspera"]) as List<MPaquete>;
+                                    if (lista.Count() > 0)
+                                    {
+                                        foreach (var fila in lista)
+                                        {
+                                            string[] cadena = fila.Paquetes.Remove(fila.Paquetes.Length - 1).Split('|');
+                                            int rowspan = cadena.Length + 1;
+                                            <tr>
+                                                <td class="columna-15" rowspan="@rowspan">@fila.Fecha</td>
+                                                <td class="columna-15" rowspan="@rowspan">@fila.Hora</td>
+                                                <td class="columna-30" rowspan="@rowspan">@fila.Mensajero</td>
+                                            </tr>
+                                            foreach (var paquetes in cadena)
+                                            {
+                                                string[] paquete = paquetes.Split(':');
+                                                <tr style="color: @paquete[2];">
+
+                                                    <td>@paquete[1]</td>
+
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="6"><center><h3>No hay registros para mostrar</h3></center></td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="columna columna-60">
+                <div id="mapa" style="height: 67.5vh;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVsFYSW1Axo5xTSkGDF0qWaKjiWxz-Eqc"></script>
+<script>
+    var mensajeros = [];
+    var ventana;
+    var mapa = new google.maps.Map(document.getElementById("mapa"), {
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: new google.maps.LatLng(19.42847, -99.12766),
+        zoom: 10,
+        scrollwheel: true,
+        draggable: true,
+        disableDoubleClickZoom: true,
+        disableDefaultUI: false,
+        zoomControl: true,
+        mapTypeControl: true,
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.DROPDOWN_MENU,
+            position: google.maps.ControlPosition.RIGHT_BOTTOM
+        }
+    });
+    const recorridos = function () {
+        $.ajax({
+            url: "/home/recorridos",
+            type: "get",
+            async: false,
+            dataType: "json",
+            beforeSend: function (xhr) {
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+            },
+            success: function (data, textStatus, jqXHR) {
+                for (let mensajero in mensajeros) {
+                    mensajeros[mensajero].setMap(null);
+                }
+                for (let i = 0; i < data.length; i++) {
+                    var marcador = new google.maps.Marker({
+                        position: new google.maps.LatLng(data[i].Latitud, data[i].Longitud),
+                        animation: google.maps.Animation.BOUNCE,
+                        icon: "/Uploads/Markers/" + data[i].Imagen,
+                        map: mapa,
+                        title: data[i].Mensajero,
+                        draggable: false
+                    });
+                    mensajeros.push(marcador);
+                    google.maps.event.addListener(marcador, "click", function () {
+                        ventana = new google.maps.InfoWindow({
+                            content: '<div class="popup">\n\
+                                    <center><img src="/Uploads/Profiles/' + data[i].Foto + '" class="img-mensajero"/><br/>\n\
+                                    <label class="text-info">' + this.title + '</label></center>\n\
+                                    <hr class="line"/>\n\
+                                    <label class="text-info">Placa: ' + data[i].Placa + '</label>\n\
+                                    <label class="text-info">Modelo: ' + data[i].Modelo + '</label>\n\
+                                    <label class="text-info">Año: ' + data[i].Anio + '</label>\n\
+                                 </div>'
+                        });
+                        ventana.open(mapa, this);
+                    });
+                    google.maps.event.addListener(mapa, "click", function () {
+                        ventana.close();
+                    });
+                }
+            }
+        });
+    };
+    recorridos();
+    setInterval(recorridos, 300000);
+    google.maps.event.addDomListener(window, 'load', mapa);
+</script>

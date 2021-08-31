@@ -1,0 +1,423 @@
+﻿
+@{
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+@using Sigame.Models;
+<div class="tabpane">
+    <ul class="menu">
+        <li class="active">..:: REGISTRAR ASIGNACIONES ::..</li>
+        <li>..:: SOLICITUDES ASIGNADAS ::..</li>
+    </ul>
+    <div class="clear"></div>
+    <div class="border-bottom"></div>
+    <div class="tab active">
+        <div class="fila fila-100">
+            <div class="columna columna-100 notificacion"></div>
+            <div class="columna columna-25">
+                <label>LISTA DE MENSAJEROS LIBRES</label>
+                <div class="lista-mensajeros input">
+                    <br />
+                    @{
+                        if (ViewData["listaMensajerosLibre"] != null)
+                        {
+                            List<MMensajero> lista = (ViewData["listaMensajerosLibre"]) as List<MMensajero>;
+                            if (lista.Count() > 0)
+                            {
+                                foreach (var fila in lista)
+                                {
+                                <div class="arrastrar mensajero" draggable="true" id="@fila.MensajeroId">
+                                    <img src="/Uploads/Profiles/@fila.Foto" />
+                                    <span>@fila.Nombre</span>
+                                </div>
+                                }
+                            } else
+                            {
+                                <center><h4>No hay mensajeros disponibles</h4></center><br/>
+                            }
+                        }
+                        }
+                </div>
+            </div>
+            <form method="post">
+                <div class="columna columna-45">
+                    <div class="fila fila-100">
+                        <div class="columna columna-50">
+                            <label>Fecha</label>
+                            <input type="text" name="fecha" value="" class="input fecha icono-calendario" placeholder="Fecha" readonly />
+                        </div>
+                        <div class="columna columna-50">
+                            <label>Hora</label>
+                            <input type="text" name="hora" value="" class="input hora icono-tiempo" placeholder="Hora" readonly />
+                        </div>
+                    </div>
+                    <div class="fila fila-100">
+                        <div class="columna columna-40">
+                            <label>Tipo de transporte</label>
+                            <select name="tipotransporteid" class="input icono-seleccionar">
+                                <option value="">SELECCIONAR</option>
+                                @{
+                                    if (ViewData["listaTipos"] != null)
+                                    {
+                                        foreach (var fila in ViewData["listaTipos"] as List<MTipoTransporte>)
+                                        {
+                                            <option value="@fila.TipoTransporteId">@fila.Tipo</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="columna columna-60">
+                            <label>Transporte</label>
+                            <select name="transportesid" class="input icono-seleccionar">
+                                <option value="">SELECCIONAR</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fila fila-100">
+                       
+                    </div>
+                    <div class="fila fila-100">
+                        <div class="columna columna-100">
+                            <label>Mensajero</label>
+                            <div class="mensajeros input" style="height: 67px;"></div>
+                        </div>
+                    </div>
+                    <div class="fila fila-100">
+                        <div class="columna columna-100">
+                            <label>Solicitudes</label>
+                            <div class="paquetes input" style="min-height: 250px;"></div>
+                        </div>
+                    </div>
+                    <div class="fila fila-100" style="text-align:right;">
+                        <div class="columna columna-100">
+                            <input type="submit" value="Guardar" class="boton" style="padding-left: 10px; padding-right: 10px;" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="columna columna-30">
+                <label>LISTA DE SOLICITUDES</label>
+                <div class="lista-paquetes input">
+                    <br />
+                    @{
+                        if (ViewData["listaMensajesParaAsignar"] != null)
+                        {
+                            List<MMensaje> lista = (ViewData["listaMensajesParaAsignar"]) as List<MMensaje>;
+                            if (lista.Count() > 0)
+                            {
+                                foreach (var fila in lista)
+                                {
+                                <div class="arrastrar paquete" draggable="true" id="@fila.MensajeId" style="width: 300px; background: linear-gradient(@fila.Color, @fila.Color);">
+                                    <img src="/Uploads/Profiles/@fila.Foto" />
+                                    <span>
+                                        De: @fila.Nombre<br />
+                                        Enviar: @fila.Descripcion<br />
+                                        Para: @fila.Destinatario<br />
+                                        Sale de: @fila.DireccionSalida<br />
+                                        Destino a: @fila.DireccionDestinatario
+                                    </span>
+                                </div>
+                                }
+                            } else
+                            {
+                                <center><h4>No hay solicitudes para asignar</h4></center><br/>
+                            }
+                        }
+                        }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab">
+        <div class="fila fila-100">
+            <div class="head">
+                <table class="tabla">
+                    <caption>
+                        LISTA DE ASIGNACIONES EN PROCESO DE ENTREGA
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th class="columna-50" colspan="4">Asignación</th>
+                            <th class="columna-30" rowspan="2">Paquetes</th>
+                            <th class="columna-10" rowspan="2">Estado</th>
+                            <th class="columna-10" rowspan="2">Acción</th>
+                        </tr>
+                        <tr>
+                            <th class="columna-10">N.P</th>
+                            <th class="columna-10">Fecha</th>
+                            <th class="columna-10">Hora</th>
+                            <th class="columna-20">Mensajero</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="lower" style="max-height: 52vh;">
+                <table class="tabla" style=" margin:auto;">
+                    <tbody>
+                        @{
+                            if (ViewData["listaPaquetesAsignadosEnProceso"] != null)
+                            {
+                                List<MPaquete> lista = (ViewData["listaPaquetesAsignadosEnProceso"]) as List<MPaquete>;
+                                if (lista.Count() > 0)
+                                {
+                                    foreach (var fila in lista)
+                                    {
+                                        string[] cadena = fila.Paquetes.Remove(fila.Paquetes.Length - 1).Split('|');
+                                        int rowspan = cadena.Length + 1;
+                                        <tr>
+                                            <td class="columna-10" rowspan="@rowspan">@fila.AsignacionId</td>
+                                            <td class="columna-10" rowspan="@rowspan">@fila.Fecha</td>
+                                            <td class="columna-10" rowspan="@rowspan">@fila.Hora</td>
+                                            <td class="columna-20" rowspan="@rowspan">@fila.Mensajero</td>
+                                        </tr>
+                                        foreach (var paquetes in cadena)
+                                        {
+                                            string[] paquete = paquetes.Split(':');
+                                            <tr style="color: @paquete[2]">
+
+                                                <td class="columna-30">@paquete[1]</td>
+                                                <td class="columna-10" style="text-align: center;">
+                                                    @if (paquete[3] == "Asignado")
+                                                    {
+                                                        <a class="link editar" style="width: 72px; text-align: center;">Asignado</a>
+                                                    }
+                                                    else if (paquete[3] == "En ruta")
+                                                    {
+                                                        <a class="link eliminar" style="width: 72px; text-align: center;">En ruta</a>
+                                                    }
+                                                    else if (paquete[3] == "Cancelado")
+                                                    {
+                                                        <a class="link eliminar" style="width: 72px; text-align: center;">Cancelado</a>
+                                                    }
+                                                </td>
+                                                <td class="columna-10" style="text-align: center;">
+                                                    @if (paquete[3] == "Asignado")
+                                                    {
+                                                        <a data-estado="/asignador/estadopaquete?paqueteid=@paquete[4]" class="link eliminar" style="width: 72px; text-align: center;">Cancelar</a>
+                                                    }
+                                                    else if (paquete[3] == "Cancelado")
+                                                    {
+                                                        <a data-estado="/asignador/estadopaquete?paqueteid=@paquete[4]" class="link editar" style="width: 72px; text-align: center;">Reactivar</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label>No disponible</label>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6"><center><h3>No hay registros para mostrar</h3></center></td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var elemento;
+    document.addEventListener("drag", function (event) {
+    }, false);
+    document.addEventListener("dragstart", function (event) {
+        // Guarda información acerca del objeto arrastrado
+        event.dataTransfer.setData("text/plain", null);
+        // Guarda una referencia del elemento arrastrado
+        elemento = event.target;
+        // cambia la opacidad del elemento a medio transporte
+        event.target.style.opacity = .5;
+    }, false);
+    document.addEventListener("dragend", function (event) {
+        // Reestablece el valor de la opacidad
+        event.target.style.opacity = 1;
+    }, false);
+    document.addEventListener("dragover", function (event) {
+        // Previene el comportamiento por defecto del elemento arrastrado
+        event.preventDefault();
+    }, false);
+    document.addEventListener("dragenter", function (event) {
+        // Comprueba si event.target es una zona de soltar
+        if (event.target.className == "paquetes input" || event.target.className == "mensajeros input") {
+            // Y si lo és cambia el color de fondo
+            event.target.style.background = "rgba(135, 206, 235, 0.2)";
+        }
+    }, false);
+    document.addEventListener("dragleave", function (event) {
+        // Comprueba si el event.target es una zona de soltar
+        if (event.target.className == "paquetes input" || event.target.className == "mensajeros input") {
+            // Y si lo és, reestablece el valor inicial
+            event.target.style.background = "";
+        }
+    }, false);
+    document.addEventListener("drop", function (event) {
+        event.preventDefault();
+        if (elemento.className == "arrastrar paquete") {
+            if (event.target.className == "paquetes input" || event.target.className == "lista-paquetes input") {
+                // Elimina el elemento arrastrado del elemento padre
+                elemento.parentNode.removeChild(elemento);
+                // Y lo agrega al elemento de destino
+                event.target.appendChild(elemento);
+            }
+        } else if (elemento.className == "arrastrar mensajero") {
+            if (event.target.className == "mensajeros input" && event.target.childNodes.length == 0) {
+                // Elimina el elemento arrastrado del elemento padre
+                elemento.parentNode.removeChild(elemento);
+                // Y lo agrega al elemento de destino
+                event.target.appendChild(elemento);
+            } else if (event.target.className == "lista-mensajeros input") {
+                // Elimina el elemento arrastrado del elemento padre
+                elemento.parentNode.removeChild(elemento);
+                // Y lo agrega al elemento de destino
+                event.target.appendChild(elemento);
+            }
+        }
+        // Reestable el color del fondo del contenedor
+        event.target.style.background = "";
+    });
+
+    $(document).ready(function () {
+        $("form").jqxValidator({
+            hintType: "label",
+            animationDuration: 0,
+            rules: [
+                {
+                    input: "[name=fecha]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=hora]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=tipotransporteid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=tipotransporteid]").val() !== "" ? true : false;
+                    }
+                },
+                {
+                    input: "[name=transportesid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=transportesid]").val() !== "" ? true : false;
+                    }
+                },
+                {
+                    input: ".mensajeros",
+                    message: "Este campo es requerido!",
+                    action: "blur, click",
+                    rule: function () {
+                        if ($(".mensajeros").find("div").length > 0) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                },
+                {
+                    input: ".paquetes",
+                    message: "Este campo es requerido!",
+                    action: "blur, click",
+                    rule: function () {
+                        if ($(".paquetes").find("div").length > 0) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            ]
+        });
+    $("[name=tipotransporteid]").on("change", function () {
+        $("[name=transportesid] option").not(":first").remove();
+        var transporteid = $("[name=tipotransporteid]").val();
+            $.ajax({
+                url: "/asignador/listatransportesportipo?tipotransporteid=" + transporteid,
+                type: "get",
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".modal").jqwLoader("open");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacion").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    for (let i = 0; i < data.length; i++) {
+                        $("[name=transportesid]").append($("<option>",
+                            {
+                                value: data[i].TransporteId,
+                                text: "Placa: " + data[i].Placa + " Modelo: " + data[i].Modelo + " Año " + data[i].Anio
+                            }));
+                    }
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".modal").jqwLoader("close");
+                    }, 200);
+                }
+            });
+    });
+        $("form").on("submit", function () {
+            $(this).jqxValidator("validate");
+            return false;
+        });
+        $("form").on("validationSuccess", function (event) {
+            var mensajero = $(".mensajeros").find("div").attr("id");
+            var paquete = document.querySelectorAll('.paquetes div');
+            var paquetes = [];
+            for (let i = 0; i < paquete.length; i++) {
+                paquetes.push(paquete[i].getAttribute("id"));
+            }
+            $.ajax({
+                url: "/asignador/enrrolar",
+                type: "post",
+                data: {
+                    paquetesid: paquetes.toString(),
+                    mensajeroid: mensajero,
+                    fecha: $("[name=fecha]").val(),
+                    hora: $("[name=hora]").val(),
+                    transporteid: $("[name=transportesid]").val()
+                },
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".modal").jqwLoader("open");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacion").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        if (data.accion === "Done") {
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 500);
+                            $(".notificacion").jqwNotificacion("exitoso", data.respuesta);
+                        } else {
+                            $(".notificacion").jqwNotificacion("error", data.respuesta);
+                        }
+                    }, 200);
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".modal").jqwLoader("close");
+                    }, 200);
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,174 @@
+﻿
+@{
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+@using Sigame.Models;
+<div class="tabpane">
+    <ul class="menu">
+        <li class="active">..:: REGISTRAR EMPLEADOS ::..</li>
+    </ul>
+    <div class="clear"></div>
+    <div class="border-bottom"></div>
+    <div class="tab active">
+        <div class="fila fila-90">
+            <div class="columna columna-50">
+                <form method="post" autocomplete="off" style="margin-top: 2%; margin-bottom: 30px;">
+                    <div class="fila fila-100">
+                        <div class="columna columna-100 notificacion"></div>
+                        <div class="columna columna-50">
+                            <label>Nombre</label>
+                            <input type="text" name="nombre" class="input icono-usuario" placeholder="Nombre" autofocus />
+                        </div>
+                        <div class="columna columna-50">
+                            <label>Apellido Paterno</label>
+                            <input type="text" name="apellidopaterno" class="input icono-usuario" placeholder="Apellido Paterno" />
+                        </div>
+                        <div class="columna columna-70">
+                            <label>Apellido Materno</label>
+                            <input type="text" name="apellidomaterno" class="input icono-usuario" placeholder="Apellido Materno" />
+                        </div>
+                        <div class="columna columna-30" style="margin-top: 15px; text-align:right;">
+                            <input type="submit" value="Guardar" class="boton" style="padding-left: 10px; padding-right: 10px;" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="columna columna-50">
+                <div class="head">
+                    <table class="tabla">
+                        <caption>
+                            <div class="fila fila-100">
+                                <div class="columna columna-40" style="float:right;">
+                                    <input type="text" class="input icono-buscador" onkeyup="buscar(this.value.toLowerCase(),'tabla-empleados');" placeholder="Buscar" />
+                                </div>
+                            </div>
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th class="columna-10">N.P</th>
+                                <th class="columna-70">Nombre</th>
+                                <th class="columna-10">Estado</th>
+                                <th class="columna-10">Acción</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="lower" style="max-height: 53vh;">
+                    <table class="tabla" id="tabla-empleados">
+                        <tbody>
+                            @{
+                                if (ViewData["listaEmpleados"] != null)
+                                {
+                                    List<MEmpleado> lista = (ViewData["listaEmpleados"]) as List<MEmpleado>;
+                                    if (lista.Count() > 0)
+                                    {
+                                        foreach (var fila in lista)
+                                        {
+                                            <tr>
+                                                <td class="columna-10">@fila.EmpleadoId</td>
+                                                <td class="columna-70">@fila.Nombre @fila.ApellidoPaterno @fila.ApellidoMaterno</td>
+                                                <td class="columna-10">
+                                                    <label class="switch">
+                                                        @{
+                                                            if (fila.EstadoEmpleado == false)
+                                                            {
+                                                                <input type="checkbox" data-estado="/administrador/estadoempleado?empleadoid=@fila.EmpleadoId" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="checkbox" data-estado="/administrador/estadoempleado?empleadoid=@fila.EmpleadoId" checked />
+                                                            }
+                                                        }
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td class="columna-10">
+                                                    <a data-href="/administrador/empleado?idempleado=@fila.EmpleadoId" class="link editar">Editar</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="3"><center><h3>No hay registros para mostrar</h3></center></td>
+                                        </tr>
+                                    }
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("form").jqxValidator({
+            hintType: "label",
+            animationDuration: 0,
+            rules: [
+                {
+                    input: "[name=nombre]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=apellidopaterno]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                },
+                {
+                    input: "[name=apellidomaterno]",
+                    message: "Este campo es requerido!",
+                    action: "keyup, blur",
+                    rule: "required"
+                }
+            ]
+        });
+        $("form").on("submit", function () {
+            $(this).jqxValidator("validate");
+            return false;
+        });
+        $("form").on("validationSuccess", function (event) {
+            $.ajax({
+                url: "/administrador/nuevoempleado",
+                type: "post",
+                data: {
+                    nombre: $("[name=nombre]").val(),
+                    apellidopaterno: $("[name=apellidopaterno]").val(),
+                    apellidomaterno: $("[name=apellidomaterno]").val()
+                },
+                async: false,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    $(".modal").jqwLoader("open");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacion").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        if (data.accion === "Done") {
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 500);
+                        $(".notificacion").jqwNotificacion("exitoso", data.respuesta);
+                    } else {
+                        $(".notificacion").jqwNotificacion("error", data.respuesta);
+                    }
+                    }, 200);
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".modal").jqwLoader("close");
+                    }, 200);
+                }
+            });
+        });
+    })
+</script>

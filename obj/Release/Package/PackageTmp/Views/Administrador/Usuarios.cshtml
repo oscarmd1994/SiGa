@@ -1,0 +1,293 @@
+﻿@{
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+@using Sigame.Models;
+<div class="tabpane">
+    <ul class="menu">
+        <li class="active">..:: REGISTRAR USUARIO ::..</li>
+        <li>..:: LISTA DE USUARIOS ::..</li>
+    </ul>
+    <div class="clear"></div>
+    <div class="border-bottom"></div>
+    <div class="tab active">
+        <div class="fila fila-80">
+            <form method="post" enctype="multipart/form-data" autocomplete="off" style="margin-top: 5%;">
+                <div class="columna columna-100 notificacion"></div>
+                <div class="columna columna-25" style="text-align:center;">
+                    <div>
+                        <img src="/Uploads/Profiles/img_000000000.png" id="foto-perfil" />
+                        <div class="personaliza" style="margin: auto;">
+                            <input type="file" name="foto" accept=".png, .jpg, .jpeg" onchange="imagen(event, this, '/Uploads/Profiles/img_000000000.png')" class="fichero-entrada" />
+                            Examinar
+                            <div class="archivo">...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columna columna-75">
+                    <div class="fila fila-100">
+                        <div class="columna columna-50">
+                            <label>Nombre</label>
+                            <select name="empleadoid" class="input icono-seleccionar">
+                                <option value="">SELECCIONAR</option>
+                                @{
+                                    if (ViewData["listaEmpleadosUsuarios"] != null)
+                                    {
+                                        foreach (var fila in ViewData["listaEmpleadosUsuarios"] as List<MEmpleado>)
+                                        {
+                                            <option value="@fila.EmpleadoId" data-nombre="@fila.Nombre" data-apellidos="@fila.ApellidoPaterno @fila.ApellidoMaterno">@fila.Nombre @fila.ApellidoPaterno @fila.ApellidoMaterno</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                            <input type="hidden" name="nombre"/>
+                            <input type="hidden" name="apellidos"/>
+                        </div>
+                        <div class="columna columna-50">
+                            <label>Empresa</label>
+                            <select name="empresaid" class="input icono-seleccionar">
+                                <option value="">SELECCIONAR</option>
+                                @{
+                                    if (ViewData["listaEmpresas"] != null)
+                                    {
+                                        foreach (var fila in ViewData["listaEmpresas"] as List<MEmpresa>)
+                                        {
+                                            <option value="@fila.EmpresaId">@fila.Empresa</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fila fila-100">
+                        <div class="columna columna-25">
+                            <label>Fecha de Nacimiento</label>
+                            <input type="date" name="fechanacimiento" class="input icono-calendario" placeholder="Fecha de Nacimiento" />
+                        </div>
+                        <div class="columna columna-35">
+                            <label>Rol de usuario</label>
+                            <select name="rolid" class="input icono-seleccionar">
+                                <option value="">SELECCIONAR</option>
+                                @{
+                                    if (ViewData["listaRoles"] != null)
+                                    {
+                                        foreach (var fila in ViewData["listaRoles"] as List<MRol>)
+                                        {
+                                            <option value="@fila.RolId">@fila.Rol</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="columna columna-40">
+                            <label>Área</label>
+                            <select name="areaid" class="input icono-seleccionar">
+                                <option value="">SELECCIONAR</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fila fila-100">
+                        <div class="columna columna-100" style="margin-top: 15px; text-align: right;">
+                            <input type="submit" value="Guardar" class="boton" style="padding-left: 10px; padding-right: 10px;" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="tab">
+        <div class="fila fila-95">
+            <div class="head">
+                <table class="tabla">
+                    <caption>
+                        <div class="fila fila-100">
+                            <div class="columna columna-40" style="float:right;">
+                                <input type="text" class="input icono-buscador" onkeyup="buscar(this.value.toLowerCase(),'tabla-usuarios');" placeholder="Buscar" />
+                            </div>
+                        </div>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th class="columna-10">N.P</th>
+                            <th class="columna-20">Nombre</th>
+                            <th class="columna-10">Usuario</th>
+                            <th class="columna-10">Fecha de Nacimiento</th>
+                            <th class="columna-10">Rol</th>
+                            <th class="columna-15">Empresa</th>
+                            <th class="columna-15">Área</th>
+                            <th class="columna-10">Estado</th>
+                            <!--th width="50px">Acción</th-->
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="lower" style="max-height: 53vh;">
+                <table class="tabla" id="tabla-usuarios">
+                    <tbody>
+                        @{
+                            if (ViewData["listaUsuarios"] != null)
+                            {
+                                List<MUsuario> lista = (ViewData["listaUsuarios"]) as List<MUsuario>;
+                                if (lista.Count() > 0)
+                                {
+                                    foreach (var fila in lista)
+                                    {
+                                        <tr>
+                                            <td class="columna-10">@fila.UsuarioId</td>
+                                            <td class="columna-20">@fila.Nombre</td>
+                                            <td class="columna-10">@fila.Usuario</td>
+                                            <td class="columna-10">@fila.FechaNacimiento</td>
+                                            <td class="columna-10">@fila.Rol</td>
+                                            <td class="columna-15">@fila.Empresa</td>
+                                            <td class="columna-15">@fila.Area</td>
+                                            <td class="columna-10">
+                                                <label class="switch">
+                                                    @{
+                                                        if (@fila.EstadoUsuario == false)
+                                                        {
+                                                            <input type="checkbox" data-estado="/administrador/estadousuario?usuarioid=@fila.UsuarioId" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="checkbox" data-estado="/administrador/estadousuario?usuarioid=@fila.UsuarioId" checked />
+                                                        }
+                                                    }
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </td>
+                                            <!--td>
+                                        <a data-href="/administrador/usuario?usuarioid=@fila.UsuarioId" class="link editar">Editar</a>
+                                    </!td-->
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="9"><center><h3>No hay registros para mostrar</h3></center></td>
+                                    </tr>
+                                }
+
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("[name='empleadoid']").on('change', function () {
+            $("[name='nombre']").val($(this).select2().find(":selected").data("nombre"));
+            $("[name='apellidos']").val($(this).select2().find(":selected").data("apellidos"));
+        });
+        $("[name=empresaid]").on("change", function () {
+            $("[name=areaid] option").not(":first").remove();
+            var empresaid = $(this).val();
+            if (empresaid != "") {
+                $.ajax({
+                    url: "/administrador/listaareas?empresaid=" + empresaid,
+                    type: "get",
+                    async: false,
+                    dataType: "json",
+                    beforeSend: function (xhr) {
+                        $(".modal").jqwLoader("open");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $(".notificacion").jqwNotificacion("error", jqXHR.responseText);
+                    },
+                    success: function (data, textStatus, jqXHR) {
+                        for (let i = 0; i < data.length; i++) {
+                            $("[name=areaid]").append($("<option>",
+                                {
+                                    value: data[i].AreaId,
+                                    text: data[i].Area
+                                }));
+                        }
+                    },
+                    complete: function (data, textStatus, jqXHR) {
+                        setTimeout(function () {
+                            $(".modal").jqwLoader("close");
+                        }, 200);
+                    }
+                });
+            }
+        });
+        $("form").jqxValidator({
+            hintType: "label",
+            animationDuration: 0,
+            rules: [
+                {
+                    input: "[name=empleadoid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=empleadoid]").val() != "" ? true : false;
+                    }
+                },
+                {
+                    input: "[name=empresaid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=empresaid]").val() != "" ? true : false;
+                    }
+                },
+                {
+                    input: "[name=rolid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=rolid]").val() != "" ? true : false;
+                    }
+                },
+                {
+                    input: "[name=areaid]",
+                    message: "Este campo es requerido!",
+                    action: "change",
+                    rule: function () {
+                        return $("[name=areaid]").val() != "" ? true : false;
+                    }
+                }
+            ]
+        });
+        $("form").on("submit", function () {
+            $(this).jqxValidator("validate");
+            return false;
+        });
+        $("form").on("validationSuccess", function (event) {
+            $.ajax({
+                url: "/administrador/nuevousuario",
+                type: "post",
+                data: new FormData($(this)[0]),
+                async: false,
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                beforeSend: function (xhr) {
+                    $(".modal").jqwLoader("open");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $(".notificacion").jqwNotificacion("error", jqXHR.responseText);
+                },
+                success: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        if (data.accion === "Done") {
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 500);
+                            $(".notificacion").jqwNotificacion("exitoso", data.respuesta);
+                        } else {
+                            $(".notificacion").jqwNotificacion("error", data.respuesta);
+                        }
+                    }, 200);
+                },
+                complete: function (data, textStatus, jqXHR) {
+                    setTimeout(function () {
+                        $(".modal").jqwLoader("close");
+                    }, 200);
+                }
+            });
+        });
+    })
+</script>
